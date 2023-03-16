@@ -2,7 +2,6 @@ import {Link} from 'react-router-dom'
 import bg from '../assets/bg.png'
 
 
-
 export default function Landing() {
     return (
         <div className="relative flex-1 bg-gray-900">
