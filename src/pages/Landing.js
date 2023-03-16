@@ -13,7 +13,7 @@ export default function Example() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <div className="bg-gray-900">
+    <div className="flex-1 bg-gray-900">
       <header className="absolute inset-x-0 top-0 z-50">
        <img
                 className="h-8 w-auto"
