@@ -21,9 +21,7 @@ class PeerProvider extends Component {
             const signer = this.provider.getSigner()
             const address = await signer.getAddress()
 
-            this.setState({
-                address: address
-            })
+            this.setState({address})
         }
     }
 
