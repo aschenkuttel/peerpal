@@ -1,15 +1,18 @@
 import ConnectButton from "./ConnectButton"
+import {Link} from "react-router-dom"
 
 export default function Header({children}) {
     return (
         <header className="bg-gray-100 border-b border-gray-200 shadow-lg">
             <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div className="flex lg:flex-1">
-                    <a href="#" className="-m-1.5 p-1.5">
-                        <span className="sr-only">Your Company</span>
-                        <img className="h-8 w-auto"
-                             src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""/>
-                    </a>
+                <Link to="/">
+                <img
+                className="h-8 w-auto"
+                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                alt=""
+                />
+                </Link>
                 </div>
 
                 {children}
