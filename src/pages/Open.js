@@ -14,7 +14,7 @@ import dao from "../assets/dao.png"
 
 
 export default function Open() {
-    const {createOffer} = useContext(PeerContext)
+    const {openTransaction} = useContext(PeerContext)
     const [data, setData] = useState({})
 
     // hardcoded for poc
@@ -156,9 +156,7 @@ export default function Open() {
                         </div>
 
                         <div className="flex justify-center gap-4 mt-2">
-                            <Button onClick={() => {
-                                console.log(data)
-                            }} className="w-24">
+                            <Button onClick={async () => await openTransaction(data)} className="w-24">
                                 Confirm
                             </Button>
                             <Link to="/" className="w-24 rounded-md bg-white py-2 px-3 text-sm font-semibold text-gray-900

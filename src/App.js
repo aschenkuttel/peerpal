@@ -10,7 +10,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Landing/>}/>
                 <Route path="/open" element={<Open/>}/>
-                <Route path="/track" element={<Track/>}/>
+                <Route path="/track/:transactionID" element={<Track/>}/>
             </Routes>
         </div>
     );

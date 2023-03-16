@@ -1,5 +1,7 @@
 import {Component, createContext} from "react"
 import {ethers} from "ethers"
+import factoryABI from "../assets/ABI/Factory.json"
+import ERC20ABI from "../assets/ABI/ERC20.json"
 
 const PeerContext = createContext(null)
 
@@ -13,6 +15,8 @@ class PeerProvider extends Component {
         }
 
         this.provider = null
+        this.factory = null
+        this.factoryAddress = "0xB601e33606628Fc7c2A3c9959Ad1D1a18483832b"
     }
 
     connect = async () => {
@@ -25,9 +29,25 @@ class PeerProvider extends Component {
         }
     }
 
+    openTransaction = async ({title, description, amount}) => {
+        const signer = await this.factory.connect(this.provider.getSigner())
+
+        try {
+            const response = await signer.openTransaction(amount)
+            const receipt = await response.wait(2)
+
+
+
+            console.log("done")
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
     async componentDidMount() {
         if (window.ethereum) {
             this.provider = new ethers.providers.Web3Provider(window.ethereum)
+            this.factory = new ethers.Contract(this.factoryAddress, factoryABI)
 
             window.ethereum.on('accountsChanged', async (wallets) => {
                 if (wallets.length === 0) {
@@ -52,7 +72,8 @@ class PeerProvider extends Component {
         return (
             <PeerContext.Provider value={{
                 address: this.state.address,
-                connect: this.connect
+                connect: this.connect,
+                openTransaction: this.openTransaction
             }}>
                 {this.props.children}
             </PeerContext.Provider>
