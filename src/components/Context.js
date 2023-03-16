@@ -29,13 +29,13 @@ class PeerProvider extends Component {
 
     async componentDidMount() {
         if (window.ethereum) {
-            this.provider = new ethers.BrowserProvider(window.ethereum)
+            this.provider = new ethers.providers.Web3Provider(window.ethereum)
 
             window.ethereum.on('accountsChanged', async (wallets) => {
                 if (wallets.length === 0) {
                     this.setState({address: null})
                 } else {
-                    const address = ethers.getAddress(wallets[0])
+                    const address = ethers.utils.getAddress(wallets[0])
                     this.setState({address})
                 }
             })
@@ -43,6 +43,10 @@ class PeerProvider extends Component {
             window.ethereum.on('chainChanged', (_) => {
                 window.location.reload()
             })
+
+            const accounts = await this.provider.listAccounts()
+            const address = (accounts.length > 0) ? accounts[0] : null
+            this.setState({address})
         }
     }
 
