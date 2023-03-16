@@ -10,8 +10,15 @@ export default function Landing() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <div className="bg-gray-900">
-      
+    <div className="flex-1 bg-gray-900">
+      <header className="absolute inset-x-0 top-0 z-50">
+       <img
+                className="h-8 w-auto"
+                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                alt=""
+              />
+        
+      </header>
 
       <div className="relative isolate overflow-hidden pt-14">
         <img

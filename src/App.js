@@ -6,7 +6,7 @@ import Track from "./pages/Track"
 
 function App() {
     return (
-        <div className="App">
+        <div className="App font-montserrat">
             <Routes>
                 <Route path="/" element={<Landing/>}/>
                 <Route path="/open" element={<Open/>}/>
