@@ -1,15 +1,12 @@
 import { useState } from 'react'
+import {Routes, Route, Link} from 'react-router-dom'
+import img from '../assets/agreement.png'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
-const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
-]
 
-export default function Example() {
+
+export default function Landing() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -25,9 +22,9 @@ export default function Example() {
 
       <div className="relative isolate overflow-hidden pt-14">
         <img
-          src="https://img.freepik.com/free-photo/partnership-handshake-innovation-corporate-business-concept_53876-104048.jpg?w=1060&t=st=1678985229~exp=1678985829~hmac=7925dbd266ac5068428df76049977ba8144c04d3c1c0e9eb8dd9701145b8fc8e"
+          src={img}
           alt=""
-          className="absolute inset-0 -z-10 h-full w-full object-cover"
+          className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
         />
         <div className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
           <svg
@@ -56,22 +53,20 @@ export default function Example() {
         </div>
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+            <h1 className="text-4xl font-bold tracking-tight text-slate-300 sm:text-6xl">
               A trustless and safe way to ensure your transactions are honored!
             </h1>
-            <p className="mt-6 text-lg leading-8 text-black">
+            <p className="mt-6 text-lg leading-8 text-slate-500">
             Welcome to PeerPal! Our platform offers a secure and reliable way for traders to transact with digital assets, using advanced blockchain technology. Our escrow service acts as a trusted third party between the buyer and seller, ensuring that both parties fulfill their obligations and that the transaction is completed successfully. The mediation part in case of bad acting will be taken care by our dedicated community of trusted mediators within our DAO.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
-                className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
-              >
-                Get started
-              </a>
-              <a href="#" className="text-sm font-semibold leading-6 text-white">
-                Learn more <span aria-hidden="true">→</span>
-              </a>
+            <Link to="/open" className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-slate-300 shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">
+                 Get started
+            </Link>
+            <p className = "text-slate-300">or</p>
+            <Link to="/track" className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-slate-300 shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">
+            Track your Tx 
+            </Link>
             </div>
           </div>
         </div>
