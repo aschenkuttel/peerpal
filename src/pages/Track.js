@@ -6,12 +6,19 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 
 
-export default function Landing() {
+export default function Track() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
     <div className="bg-gray-900">
-      
+      <header className="absolute inset-x-0 top-0 z-50">
+       <img
+                className="h-8 w-auto"
+                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                alt=""
+              />
+        
+      </header>
 
       <div className="relative isolate overflow-hidden pt-14">
         <img
@@ -46,17 +53,12 @@ export default function Landing() {
         </div>
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-slate-300 sm:text-6xl">
-              A trustless and safe way to ensure your transactions are honored!
-            </h1>
-            <p className="mt-10 text-lg leading-8 text-slate-500">
-            Welcome to PeerPal! Our platform offers a secure and reliable way for traders to transact with digital assets, using advanced blockchain technology. Our escrow service acts as a trusted third party between the buyer and seller, ensuring that both parties fulfill their obligations and that the transaction is completed successfully. The mediation part in case of bad acting will be taken care by our dedicated community of trusted mediators within our DAO.
-            </p>
+            
             <div className="mt-10 flex items-center justify-center gap-x-6">
             <Link to="/open" className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-slate-300 shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">
                  Get started
             </Link>
-            <p className = "text-slate-500">or</p>
+            <p className = "text-slate-300">or</p>
             <Link to="/track" className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-slate-300 shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">
             Track your Tx 
             </Link>
