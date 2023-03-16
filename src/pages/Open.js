@@ -5,10 +5,12 @@ import {CheckIcon, ChevronUpDownIcon} from '@heroicons/react/20/solid'
 import {BigNumber, utils} from "ethers"
 import clsx from "clsx"
 import Header from "../components/Header"
+import Footer from "../components/Footer"
 import {Button} from "../components/Button"
 import {PeerContext} from "../components/Context"
 import feedback from "../assets/feedback.png"
 import safeTransaction from "../assets/safe_transaction.png"
+import dao from "../assets/dao.png"
 
 
 export default function Open() {
@@ -172,8 +174,9 @@ export default function Open() {
                 <div className="w-full max-w-2xl flex flex-col gap-12 mt-4">
                     <div className="flex justify-between items-center gap-12">
                         <div className="text-end">
-                            <p className="text-lg font-bold">Secure your payment</p>
-                            <p className="font-medium">Smart contract locks the funds of your costumer, so you can ship your goods safely
+                            <p className="text-lg font-semibold">Secure your payment</p>
+                            <p className="font-medium">Smart contract locks the funds of your costumer, so you can ship
+                                your goods safely
                                 knowing that you will get paid</p>
                         </div>
                         <img src={safeTransaction} alt="Safe Transaction" className="max-w-xs rounded-xl"/>
@@ -182,13 +185,25 @@ export default function Open() {
                     <div className="flex justify-between items-center gap-12">
                         <img src={feedback} alt="Feedback" className="max-w-xs rounded-xl"/>
                         <div>
-                            <p className="text-lg font-bold">Forced feedback</p>
-                            <p className="font-medium">Upon purchase your client deposits the value of the goods and a small deposit.
+                            <p className="text-lg font-semibold">Forced feedback</p>
+                            <p className="font-medium">Upon purchase your client deposits the value of the goods and a
+                                small deposit.
                                 Once the parcel arrives, your client unlocks the money and gets his deposit back.</p>
+                        </div>
+                    </div>
+
+                    <div className="relative flex justify-between items-center gap-12 pb-12">
+                        <img src={dao} alt="Feedback" className="rounded-xl"/>
+                        <div className="absolute text-gray-200 left-12 max-w-md">
+                            <p className="text-lg font-semibold">Integrated DAO</p>
+                            <p className="font-medium">DAO mediates flagged transactions with decentralized
+                                decision-making and transparent voting to punish bad actors.</p>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <Footer/>
         </Fragment>
     )
 }
