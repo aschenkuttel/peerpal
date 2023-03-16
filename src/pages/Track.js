@@ -12,12 +12,14 @@ export default function Track() {
   return (
     <div className="bg-gray-900">
       <header className="absolute inset-x-0 top-0 z-50">
+       <Link to="/">
        <img
                 className="h-8 w-auto"
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                 alt=""
               />
-        
+       </Link>
+
       </header>
 
       <div className="relative isolate overflow-hidden pt-14">

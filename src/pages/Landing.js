@@ -12,12 +12,13 @@ export default function Landing() {
   return (
     <div className="flex-1 bg-gray-900">
       <header className="absolute inset-x-0 top-0 z-50">
+      <Link to="/">
        <img
                 className="h-8 w-auto"
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                 alt=""
               />
-        
+       </Link>
       </header>
 
       <div className="relative isolate overflow-hidden pt-14">
@@ -59,11 +60,12 @@ export default function Landing() {
             <p className="mt-10 text-lg leading-8 text-slate-500">
             Welcome to PeerPal! Our platform offers a secure and reliable way for traders to transact with digital assets, using advanced blockchain technology. Our escrow service acts as a trusted third party between the buyer and seller, ensuring that both parties fulfill their obligations and that the transaction is completed successfully. The mediation part in case of bad acting will be taken care by our dedicated community of trusted mediators within our DAO.
             </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
+            <div className="flex flex-col mt-10 justify-center gap-y-6">
             <Link to="/open" className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-slate-300 shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">
                  Get started
             </Link>
             <p className = "text-slate-500">or</p>
+            <input class="placeholder:italic placeholder:text-slate-400 block bg-white w-full border border-slate-300 rounded-md py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm" placeholder="0x00000000..." type="text" name="search"/>
             <Link to="/track" className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-slate-300 shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">
             Track your Tx 
             </Link>
