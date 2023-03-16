@@ -49,7 +49,8 @@ class PeerProvider extends Component {
     render() {
         return (
             <PeerContext.Provider value={{
-                address: this.state.address
+                address: this.state.address,
+                connect: this.connect
             }}>
                 {this.props.children}
             </PeerContext.Provider>
