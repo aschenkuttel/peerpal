@@ -26,10 +26,10 @@ export default function Open() {
             <Header>
                 <p className="text-center text-3xl font-medium">Open your Transaction</p>
             </Header>
-            <div className="flex-1 flex flex-col items-center p-4 bg-gray-200 bg-gradient-to-b from-gray-100 to-blue-100">
+            <div className="flex-1 flex flex-col items-center p-4 bg-gray-50">
 
                 <div className="w-full max-w-2xl py-12">
-                    <div className="w-full flex flex-col gap-2 bg-white rounded-xl px-8 py-4">
+                    <div className="w-full flex flex-col gap-2 bg-gray-100 border border-gray-200 rounded-xl px-8 py-4">
                         <div>
                             <label htmlFor="title" className="block text-sm font-medium leading-6 text-gray-900">
                                 Title
@@ -167,7 +167,6 @@ export default function Open() {
                     </div>
                 </div>
 
-
                 <p className="text-3xl font-medium mt-8">How it works</p>
 
                 <div className="w-full max-w-2xl flex flex-col gap-12 mt-4">
@@ -177,7 +176,7 @@ export default function Open() {
                             <p className="font-medium">Smart contract locks the funds of your costumer, so you can ship your goods safely
                                 knowing that you will get paid</p>
                         </div>
-                        <img src={safeTransaction} alt="Safe Transaction" className="max-w-xs rounded-xl animate-spin animate-spin"/>
+                        <img src={safeTransaction} alt="Safe Transaction" className="max-w-xs rounded-xl"/>
                     </div>
 
                     <div className="flex justify-between items-center gap-12">

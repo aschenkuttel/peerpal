@@ -2,7 +2,7 @@ import ConnectButton from "./ConnectButton"
 
 export default function Header({children}) {
     return (
-        <header className="bg-gray-100 border-b border-gray-300">
+        <header className="bg-gray-100 border-b border-gray-200 shadow-lg">
             <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
                 <div className="flex lg:flex-1">
                     <a href="#" className="-m-1.5 p-1.5">
