@@ -11,7 +11,8 @@ import {PeerContext} from "../components/Context"
 import feedback from "../assets/feedback.png"
 import safeTransaction from "../assets/safe_transaction.png"
 import dao from "../assets/dao.png"
-import Spinner from "../components/Spinner";
+import Spinner from "../components/Spinner"
+import Page from "../components/Page"
 
 
 export default function Open() {
@@ -227,16 +228,13 @@ export default function Open() {
         }
     }
 
-    return (
-        <Fragment>
-            <Header>
-                <p className="text-center text-3xl font-medium">Open your Transaction</p>
-            </Header>
-            <div className="flex-1 flex flex-col justify-center items-center p-4 bg-gray-50">
-                {content()}
-            </div>
+    // <p className="text-center text-3xl font-medium">Open your Transaction</p>
 
-            <Footer/>
-        </Fragment>
+    return (
+        <Page headerChildren={
+            <p className="text-center text-3xl font-medium">Open your Transaction</p>
+        }>
+            {content()}
+        </Page>
     )
 }

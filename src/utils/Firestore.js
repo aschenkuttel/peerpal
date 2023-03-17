@@ -28,7 +28,6 @@ export default class Firestore {
     }
 
     async getTransactions(walletAddress) {
-        console.log(walletAddress)
         const colRef = collection(this._db, "transactions")
         const isSeller = query(colRef, where("seller", "==", walletAddress))
         const isBuyer = query(colRef, where("buyer", "==", walletAddress))
