@@ -14,8 +14,8 @@ export default function Track() {
         (async () => {
           if(address==null) return
             await db.getTransactions(address)
-            const a = await db.getTransactions(address)
-            setTransactions(a)
+            const transactions = await db.getTransactions(address)
+            setTransactions(transactions)
             setLoading(false)
         })()
     }, [address])

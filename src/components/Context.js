@@ -81,7 +81,7 @@ class PeerProvider extends Component {
         try {
             const response = await signer.deposit()
             await response.wait()
-            await this.updateTransaction({buyer: this.state.address})
+            await this.db.updateTransaction(transactionID,{buyer: this.state.address})
             return true
         } catch (error) {
             console.log(error)
