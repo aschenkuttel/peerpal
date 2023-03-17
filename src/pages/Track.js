@@ -45,6 +45,19 @@ export default function Track() {
         }
     }
 
+    function dateFormat(timestamp){
+      const time = new Date(parseInt(timestamp)*1000);
+      const day = time.getDate();
+      const month = time.getMonth() +1;
+      const year = time.getFullYear();
+      const hours = time.getHours();
+      const minutes = time.getMinutes();
+      const seconds = time.getSeconds();
+      
+      // create a formatted date string using the day, month, and year
+      return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+      
+    }
 
     return (
         <Page>
@@ -88,9 +101,7 @@ export default function Track() {
                                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                         {getTxState(transaction)}
                                     </td>
-                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{
-
-                                    }</td>
+                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{dateFormat(transaction.timestamp)}</td>
                                 </tr>
                             ))}
                             </tbody>
