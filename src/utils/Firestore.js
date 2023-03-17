@@ -21,7 +21,7 @@ export default class Firestore {
         const snapshot = await getDoc(docRef)
 
         if (snapshot.exists()) {
-            return snapshot.data()
+            return {id: snapshot.id, ...doc.data()}
         } else {
             return null
         }

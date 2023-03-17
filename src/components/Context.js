@@ -15,6 +15,7 @@ class PeerProvider extends Component {
         this.provider = null
         this.factory = null
         this.factoryAddress = "0xB601e33606628Fc7c2A3c9959Ad1D1a18483832b"
+        this.currencyAddress = "0xb106ed7587365a16b6691a3D4B2A734f4E8268a2"
 
         this.state = {
             address: null
@@ -57,6 +58,21 @@ class PeerProvider extends Component {
         }
     }
 
+    approve = async (transactionID, amount) => {
+        const contract = new ethers.Contract(this.currencyAddress, ERC20ABI)
+        const signer = await contract.connect(this.provider.getSigner())
+
+        try {
+            console.log(amount)
+            const response = await signer.approve(transactionID, amount)
+            await response.wait()
+            return true
+        } catch (error) {
+            console.log(error)
+            return false
+        }
+    }
+
     async componentDidMount() {
         if (window.ethereum) {
             this.provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -87,6 +103,7 @@ class PeerProvider extends Component {
                 address: this.state.address,
                 connect: this.connect,
                 openTransaction: this.openTransaction,
+                approve: this.approve,
                 db: this.db,
                 provider: this.provider
             }}>

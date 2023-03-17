@@ -2,17 +2,19 @@ import {Fragment, useContext, useEffect, useState} from "react"
 import {Link, useParams} from "react-router-dom"
 import {PeerContext} from "../components/Context"
 import {ethers} from "ethers"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faCheck} from "@fortawesome/free-solid-svg-icons"
 import Page from "../components/Page"
 import Spinner from "../components/Spinner"
 import {Button} from "../components/Button"
-import safeTransaction from "../assets/safe_transaction.png"
-import feedback from "../assets/feedback.png"
+import trust from "../assets/trust.png"
+import scam from "../assets/scam.png"
 import dao from "../assets/dao.png"
 import ERC20ABI from "../assets/ABI/ERC20.json"
 
 export default function Approve() {
     const {transactionID} = useParams()
-    const {address, db, provider} = useContext(PeerContext)
+    const {address, db, approve, provider} = useContext(PeerContext)
     const [transaction, setTransaction] = useState(null)
     const [loading, setLoading] = useState(true)
     const [approved, setApproved] = useState(false)
@@ -34,9 +36,10 @@ export default function Approve() {
                 )
 
                 const signer = await currencyContract.connect(provider.getSigner())
-                const allowance = await signer.allowance(transactionID, address)
-
-                if (allowance.gt(transaction.amount)) {
+                const allowance = await signer.allowance(address, transactionID)
+                console.log(allowance.toString())
+                console.log(transaction.amount.toString())
+                if (allowance.gte(transaction.amount)) {
                     setApproved(true)
                 }
 
@@ -118,11 +121,14 @@ export default function Approve() {
 
                             <div className="flex justify-center gap-4 mt-2">
                                 <Button
-                                    disabled={address === null}
+                                    disabled={address === null || approved}
                                     onClick={async () => {
                                         setLoading(true)
+                                        const response = await approve(transactionID, transaction.amount)
+                                        setApproved(response)
+                                        setLoading(false)
                                     }} className="w-24">
-                                    Approve
+                                    {approved ? <FontAwesomeIcon icon={faCheck}/> : "Approve"}
                                 </Button>
 
                                 <Button
@@ -136,42 +142,40 @@ export default function Approve() {
                         </div>
                     </div>
 
-                    <div className="text-center">
-                        <div className="w-full max-w-2xl flex flex-col gap-8">
-                            <div className="flex justify-between items-center">
-                                <div className="w-80 text-end">
-                                    <p className="text-white text-lg font-semibold">Secure your payment</p>
-                                    <p className="text-gray-300 font-medium mt-2">Smart contract locks the funds of your
-                                        costumer, so you
-                                        can
-                                        ship
-                                        your goods safely
-                                        knowing that you will get paid</p>
-                                </div>
-                                <img src={safeTransaction} alt="Safe Transaction" className="w-80 rounded-xl"/>
+                    <div className="w-full max-w-2xl flex flex-col gap-8">
+                        <div className="flex justify-between items-center">
+                            <div className="w-80 text-end">
+                                <p className="text-white text-lg font-semibold">Secure your payment</p>
+                                <p className="text-gray-300 font-medium mt-2">Smart contract locks the funds of your
+                                    costumer, so you
+                                    can
+                                    ship
+                                    your goods safely
+                                    knowing that you will get paid</p>
                             </div>
+                            <img src={scam} alt="Safe Transaction" className="w-80 rounded-xl"/>
+                        </div>
 
-                            <div className="flex justify-between items-center">
-                                <img src={feedback} alt="Feedback" className="w-80 rounded-xl"/>
-                                <div className="w-80 text-start">
-                                    <p className="text-white text-lg font-semibold">Forced feedback</p>
-                                    <p className="text-gray-300 font-medium mt-2">Upon purchase your client deposits the
-                                        value of the goods
-                                        and
-                                        a
-                                        small deposit.
-                                        Once the parcel arrives, your client unlocks the money and gets his deposit
-                                        back.</p>
-                                </div>
+                        <div className="flex justify-between items-center">
+                            <img src={trust} alt="Feedback" className="w-80 rounded-xl"/>
+                            <div className="w-80 text-start">
+                                <p className="text-white text-lg font-semibold">Forced feedback</p>
+                                <p className="text-gray-300 font-medium mt-2">Upon purchase your client deposits the
+                                    value of the goods
+                                    and
+                                    a
+                                    small deposit.
+                                    Once the parcel arrives, your client unlocks the money and gets his deposit
+                                    back.</p>
                             </div>
+                        </div>
 
-                            <div className="relative flex justify-between items-center gap-8 pb-12">
-                                <img src={dao} alt="Feedback" className="rounded-xl"/>
-                                <div className="absolute text-gray-200 left-12 max-w-md">
-                                    <p className="text-lg font-semibold">Integrated DAO</p>
-                                    <p className="font-medium">DAO mediates flagged transactions with decentralized
-                                        decision-making and transparent voting to punish bad actors.</p>
-                                </div>
+                        <div className="relative flex justify-between items-center gap-8 pb-12">
+                            <img src={dao} alt="Feedback" className="rounded-xl"/>
+                            <div className="absolute text-gray-200 left-12 max-w-md">
+                                <p className="text-lg font-semibold">Integrated DAO</p>
+                                <p className="font-medium">DAO mediates flagged transactions with decentralized
+                                    decision-making and transparent voting to punish bad actors.</p>
                             </div>
                         </div>
                     </div>
