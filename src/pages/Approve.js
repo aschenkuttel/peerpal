@@ -11,7 +11,7 @@ import trust from "../assets/trust.png"
 import scam from "../assets/scam.png"
 import dao from "../assets/dao.png"
 import ERC20ABI from "../assets/ABI/ERC20.json"
-import Invalid from "./404"
+import Invalid from "../components/Invalid"
 
 export default function Approve() {
     const {transactionID} = useParams()
