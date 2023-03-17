@@ -2,6 +2,7 @@ import {Component, createContext} from "react"
 import {ethers} from "ethers"
 import factoryABI from "../assets/ABI/Factory.json"
 import ERC20ABI from "../assets/ABI/ERC20.json"
+import Firestore from "../utils/Firestore"
 
 const PeerContext = createContext(null)
 
@@ -10,13 +11,14 @@ class PeerProvider extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            address: null
-        }
-
+        this.db = new Firestore()
         this.provider = null
         this.factory = null
         this.factoryAddress = "0xB601e33606628Fc7c2A3c9959Ad1D1a18483832b"
+
+        this.state = {
+            address: null
+        }
     }
 
     connect = async () => {
@@ -34,12 +36,20 @@ class PeerProvider extends Component {
 
         try {
             const response = await signer.openTransaction(amount)
-            const receipt = await response.wait(2)
+            const receipt = await response.wait()
 
+            const factoryInterface = new ethers.utils.Interface(factoryABI)
+            const logs = factoryInterface.parseLog(receipt.logs[0])
 
+            await this.db.insertTransaction(
+                logs.args.transactionAddress,
+                title,
+                description,
+                amount
+            )
 
             console.log("done")
-        } catch(error) {
+        } catch (error) {
             console.log(error)
         }
     }
