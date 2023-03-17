@@ -3,9 +3,11 @@ import {useEffect, useContext, useState} from "react"
 import {PeerContext} from "../components/Context"
 import Page from '../components/Page'
 import Spinner from '../components/Spinner'
+import Invalid from '../components/Invalid'
+
 
 export default function TrackTx() {
-    const {db} = useContext(PeerContext)
+    const {db, address} = useContext(PeerContext)
     const {transactionID} = useParams()
     const [receivedTx,setReceivedTx] = useState(null);
     const [loading,setLoading] = useState(true);
@@ -14,7 +16,10 @@ export default function TrackTx() {
         (async () => {
            await db.getTransaction(transactionID)
            const tx = await db.getTransaction(transactionID)
-           setReceivedTx(tx)
+           if([tx.seller, tx.buyer].includes(address)){
+            setReceivedTx(tx)
+           }
+           
            setLoading(false)
         })()
     },[])
@@ -63,12 +68,11 @@ export default function TrackTx() {
         
       }
 
-
-    return (
-        <Page>
-            {
-             !loading &&    
-            <div className="px-4 sm:px-6 lg:px-8">
+      const content = () => {
+        if (loading) {
+            return <Spinner />
+        }else if(receivedTx!=null){
+            return <div className="px-4 sm:px-6 lg:px-8">
                     <div className="sm:flex sm:items-center">
                         <div className="sm:flex-auto">
                             <h1 className="text-base font-semibold leading-6 text-slate-300">
@@ -130,18 +134,19 @@ export default function TrackTx() {
                         </div>
                     </div>
                 </div>
-            }
-            {
-                loading &&
-                <Spinner/>
-            }
+
+        }else{
+            return <Invalid />
+        }
+      }
 
 
+
+    return (
+        <Page>
+           
+            {content()}
         </Page>
-
-               
-
-
-              
+      
     )
 }
