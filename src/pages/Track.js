@@ -1,8 +1,8 @@
-import {useParams, Link} from 'react-router-dom'
 import {useEffect, useContext, useState} from "react"
 import {PeerContext} from "../components/Context"
 import Page from '../components/Page'
 import Spinner from '../components/Spinner'
+import {ButtonLink} from "../components/Button"
 import {dateFormat, linkifyTx} from "../utils/parse"
 
 export default function Track() {
@@ -50,10 +50,6 @@ export default function Track() {
         <Page>
             {
                 !loading &&
-                // <div className="mt-8 flow-root max-w-5xl w-full">
-                //   <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                //       <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-                //           <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg"></div>
                 <div className="w-full max-w-5xl overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                     <table className="min-w-full divide-y divide-gray-300 rounded-xl">
                         <thead className="bg-gray-800">
@@ -84,10 +80,10 @@ export default function Track() {
                         {transactions.map((transaction) => (
                             <tr key={transaction.id}>
                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    <Link to={`/track/${transaction.id}`}
+                                    <ButtonLink to={`/track/${transaction.id}`}
                                           className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-slate-300 shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">
                                         {linkifyTx(transaction.id)}
-                                    </Link>
+                                    </ButtonLink>
 
                                 </td>
                                 <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
@@ -105,8 +101,6 @@ export default function Track() {
                         </tbody>
                     </table>
                 </div>
-                //     </div>
-                // </div>
             }
             {
                 loading &&

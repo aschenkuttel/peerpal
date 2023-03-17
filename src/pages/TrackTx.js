@@ -49,7 +49,7 @@ export default function TrackTx() {
         </span>
         }
     }
-    
+
     const content = () => {
         if (loading) {
             return <Spinner/>
