@@ -1,15 +1,13 @@
 import {useParams, Link} from 'react-router-dom'
-import bg from '../assets/bg.png'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
 import {useEffect, useContext, useState} from "react"
 import {PeerContext} from "../components/Context"
 import Page from '../components/Page'
+import Spinner from '../components/Spinner'
 
 export default function Track() {
     const {db, address} = useContext(PeerContext)
-
     const [transactions, setTransactions] = useState([]);
+    const [loading,setLoading] = useState(true);
 
 
     useEffect(() => {
@@ -17,6 +15,7 @@ export default function Track() {
             await db.getTransactions(address)
             const a = await db.getTransactions(address)
             setTransactions(a)
+            setLoading(false)
         })()
     }, [])
 
@@ -59,9 +58,16 @@ export default function Track() {
       
     }
 
+    function linkifyTx(tx){
+      const txF = tx.substring(tx.length-6, tx.length);
+      return `0x...${txF}`;
+    }
+
     return (
         <Page>
-            <div className="mt-8 flow-root">
+          {
+            !loading &&
+              <div className="mt-8 flow-root max-w-5xl w-full">
                 <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                         <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg"></div>
@@ -93,10 +99,17 @@ export default function Track() {
                             <tbody className="divide-y divide-gray-200 bg-white">
                             {transactions.map((transaction) => (
                                 <tr key={transaction.id}>
-                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{transaction.id}</td>
-                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{transaction.seller}</td>
                                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                        {transaction.buyer ? transaction.buyer : "No buyer yet"}
+                                    <Link to={`/track/${transaction.id}`} className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-slate-300 shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">
+                                    {linkifyTx(transaction.id)}
+                                    </Link>
+                                    
+                                    </td>
+                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                      {linkifyTx(transaction.seller) }
+                                    </td>
+                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                        {transaction.buyer ? linkifyTx(transaction.buyer) : "No buyer yet"}
                                     </td>
                                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                         {getTxState(transaction)}
@@ -109,6 +122,12 @@ export default function Track() {
                     </div>
                 </div>
             </div>
+          } 
+          {
+            loading &&
+            <Spinner/>
+          }
+            
         </Page>
     )
 }
