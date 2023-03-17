@@ -1,4 +1,4 @@
-import {useParams} from 'react-router-dom'
+import {useParams, Link} from 'react-router-dom'
 import bg from '../assets/bg.png'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -7,64 +7,32 @@ import {PeerContext} from "../components/Context"
 
 export default function Track() {
     const {db, address} = useContext(PeerContext)
-    const {transactionID} = useParams()
+     const {transactionID} = useParams()
 
     const [transactions, setTransactions] = useState([]);
 
+    
+
     const people = [
-        {transaction: transactionID, state: 'Pending', date: '2023-03-17'},
+        {transactions: transactionID, state: 'Pending', date: '2023-03-17'},
         // More people...
     ]
 
+
     useEffect(() => {
         (async () => {
-            if (address === null) return
-
-            const fetchedTransactions = await db.getTransactions(address)
-            setTransactions(fetchedTransactions)
+           await db.getTransactions(address)
+           const a = await db.getTransactions(address)
+           //setTransactions(a)
         })()
-    }, [db, address])
+    },[])
 
     return (
-        <div className="flex-1 bg-gray-900">
-            <Header>
-                <p className="text-center text-3xl font-medium">Track your Transaction</p>
-            </Header>
+        <div className="relative flex flex-col flex-1 bg-gray-900">
+            <Header className="bg-transparent border-b-0 shadow-none"/>
 
-            <div className="relative isolate overflow-hidden pt-14">
-                <img
-                    src={bg}
-                    alt=""
-                    className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
-                />
-                <div
-                    className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
-                    <svg
-                        className="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"
-                        viewBox="0 0 1155 678"
-                    >
-                        <path
-                            fill="url(#45de2b6b-92d5-4d68-a6a0-9b9b2abad533)"
-                            fillOpacity=".2"
-                            d="M317.219 518.975L203.852 678 0 438.341l317.219 80.634 204.172-286.402c1.307 132.337 45.083 346.658 209.733 145.248C936.936 126.058 882.053-94.234 1031.02 41.331c119.18 108.451 130.68 295.337 121.53 375.223L855 299l21.173 362.054-558.954-142.079z"
-                        />
-                        <defs>
-                            <linearGradient
-                                id="45de2b6b-92d5-4d68-a6a0-9b9b2abad533"
-                                x1="1155.49"
-                                x2="-78.208"
-                                y1=".177"
-                                y2="474.645"
-                                gradientUnits="userSpaceOnUse"
-                            >
-                                <stop stopColor="#9089FC"/>
-                                <stop offset={1} stopColor="#FF80B5"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                </div>
-
-
+            <div className="z-10 w-full h-full flex justify-center items-center flex-1 isolate overflow-hidden py-32">
+                <div className="mx-auto max-w-2xl">
                 <div className="px-4 sm:px-6 lg:px-8">
                     <div className="sm:flex sm:items-center">
                         <div className="sm:flex-auto">
@@ -93,11 +61,11 @@ export default function Track() {
                                         </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
-                                        {transactions.map((transaction) => (
-                                            <tr key={transaction.id}>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{transaction.id}</td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{transaction.seller}</td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{transaction.timestamp}</td>
+                                        {people.map((transaction) => (
+                                            <tr key={transaction.transaction}>
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{transaction.transaction}</td>
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{transaction.state}</td>
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{transaction.date}</td>
                                             </tr>
                                         ))}
                                         </tbody>
@@ -107,10 +75,15 @@ export default function Track() {
                         </div>
                     </div>
                 </div>
+                </div>
+            </div>
 
+            <Footer className="bg-transparent border-t-0 shadow-none text-gray-200"/>
 
+            {/*background image + svgs*/}
+            <div className="absolute w-full h-full overflow-hidden">
                 <div
-                    className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
+                    className="absolute inset-x-0 top-[calc(100%-13rem)] transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
                     <svg
                         className="relative left-[calc(50%+3rem)] h-[21.1875rem] max-w-none -translate-x-1/2 sm:left-[calc(50%+36rem)] sm:h-[42.375rem]"
                         viewBox="0 0 1155 678"
@@ -135,8 +108,41 @@ export default function Track() {
                         </defs>
                     </svg>
                 </div>
+
+                <div
+                    className="absolute inset-x-0 top-[-10rem] transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
+                    <svg
+                        className="left-[calc(50%-11rem)] h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"
+                        viewBox="0 0 1155 678"
+                    >
+                        <path
+                            fill="url(#45de2b6b-92d5-4d68-a6a0-9b9b2abad533)"
+                            fillOpacity=".2"
+                            d="M317.219 518.975L203.852 678 0 438.341l317.219 80.634 204.172-286.402c1.307 132.337 45.083 346.658 209.733 145.248C936.936 126.058 882.053-94.234 1031.02 41.331c119.18 108.451 130.68 295.337 121.53 375.223L855 299l21.173 362.054-558.954-142.079z"
+                        />
+                        <defs>
+                            <linearGradient
+                                id="45de2b6b-92d5-4d68-a6a0-9b9b2abad533"
+                                x1="1155.49"
+                                x2="-78.208"
+                                y1=".177"
+                                y2="474.645"
+                                gradientUnits="userSpaceOnUse"
+                            >
+                                <stop stopColor="#9089FC"/>
+                                <stop offset={1} stopColor="#FF80B5"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+
+                <img
+                    src={bg}
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover opacity-20 mix-blend-color-burn"
+                />
             </div>
-            <Footer/>
+
         </div>
     )
 }
