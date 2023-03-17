@@ -4,8 +4,6 @@ import {Link} from "react-router-dom"
 import {CheckIcon, ChevronUpDownIcon} from '@heroicons/react/20/solid'
 import {BigNumber, utils} from "ethers"
 import clsx from "clsx"
-import Header from "../components/Header"
-import Footer from "../components/Footer"
 import {Button} from "../components/Button"
 import {PeerContext} from "../components/Context"
 import feedback from "../assets/feedback.png"
@@ -37,11 +35,11 @@ export default function Open() {
         } else {
             return (
                 <Fragment>
-                    <div className="w-full max-w-2xl py-12">
+                    <div className="w-full max-w-2xl pt-12 pb-8">
                         <div
-                            className="w-full flex flex-col gap-2 bg-gray-100 border border-gray-200 rounded-xl px-8 py-4">
+                            className="w-full flex flex-col gap-2 bg-gray-800 border border-gray-700 rounded-xl px-8 py-4">
                             <div>
-                                <label htmlFor="title" className="block text-sm font-medium leading-6 text-gray-900">
+                                <label htmlFor="title" className="block text-sm font-medium leading-6 text-white">
                                     Title
                                 </label>
                                 <div>
@@ -51,7 +49,7 @@ export default function Open() {
                                         id="title"
                                         maxLength="64"
                                         onChange={(e) => setTitle(e.target.value)}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 py-1.5 bg-gray-700 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                                         placeholder="Productname"
                                     />
                                 </div>
@@ -59,7 +57,7 @@ export default function Open() {
 
                             <div>
                                 <label htmlFor="description"
-                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                       className="block text-sm font-medium leading-6 text-white">
                                     Description
                                 </label>
                                 <div>
@@ -68,7 +66,7 @@ export default function Open() {
                                 id="description"
                                 maxLength="240"
                                 onChange={(e) => setDescription(e.target.value)}
-                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 py-1.5 bg-gray-700 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                                 placeholder="A short description of your product/service"
                             />
                                 </div>
@@ -77,7 +75,7 @@ export default function Open() {
                             <div className="flex justify-between gap-4">
                                 <div className="flex-1">
                                     <label htmlFor="amount"
-                                           className="block text-sm font-medium leading-6 text-gray-900">
+                                           className="block text-sm font-medium leading-6 text-white">
                                         Amount
                                     </label>
                                     <div>
@@ -92,7 +90,7 @@ export default function Open() {
                                                     setAmount(BigNumber.from(0))
                                                 }
                                             }}
-                                            className="flex-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                                            className="flex-1 block w-full rounded-md border-0 py-1.5 bg-gray-700 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                                             placeholder="0.00"
                                         />
                                     </div>
@@ -102,12 +100,12 @@ export default function Open() {
                                         {({open}) => (
                                             <>
                                                 <Listbox.Label
-                                                    className="block text-sm font-medium leading-6 text-gray-900">
+                                                    className="block text-sm font-medium leading-6 text-white">
                                                     Currency
                                                 </Listbox.Label>
                                                 <div className="relative">
                                                     <Listbox.Button
-                                                        className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6 disabled:cursor-not-allowed"
+                                                        className="relative w-full cursor-default rounded-md bg-gray-700 text-gray-100 py-1.5 pl-3 pr-10 text-left shadow-sm ring-1 ring-inset ring-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6 disabled:cursor-not-allowed"
                                                         disabled={true}>
                                                         <span className="block truncate">{selected.symbol}</span>
                                                         <span
@@ -177,34 +175,32 @@ export default function Open() {
                                     Confirm
                                 </Button>
                                 <Link to="/" className="w-24 rounded-md bg-white py-2 px-3 text-sm font-semibold text-gray-900
-                        shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 text-center">
+                        shadow-sm ring-1 ring-inset ring-gray-600 hover:bg-gray-50 text-center">
                                     Cancel
                                 </Link>
                             </div>
                         </div>
                     </div>
 
-                    <div className={loading ? "hidden" : ""}>
-                        <p className="text-3xl font-medium mt-4">How it works</p>
-
-                        <div className="w-full max-w-2xl flex flex-col gap-12 mt-8">
-                            <div className="flex justify-between items-center gap-12">
-                                <div className="text-end">
-                                    <p className="text-lg font-semibold">Secure your payment</p>
-                                    <p className="font-medium">Smart contract locks the funds of your costumer, so you
+                    <div className="text-center">
+                        <div className="w-full max-w-2xl flex flex-col gap-8">
+                            <div className="flex justify-between items-center">
+                                <div className="w-80 text-end">
+                                    <p className="text-white text-lg font-semibold">Secure your payment</p>
+                                    <p className="text-gray-300 font-medium mt-2">Smart contract locks the funds of your costumer, so you
                                         can
                                         ship
                                         your goods safely
                                         knowing that you will get paid</p>
                                 </div>
-                                <img src={safeTransaction} alt="Safe Transaction" className="max-w-xs rounded-xl"/>
+                                <img src={safeTransaction} alt="Safe Transaction" className="w-80 rounded-xl"/>
                             </div>
 
-                            <div className="flex justify-between items-center gap-12">
-                                <img src={feedback} alt="Feedback" className="max-w-xs rounded-xl"/>
-                                <div>
-                                    <p className="text-lg font-semibold">Forced feedback</p>
-                                    <p className="font-medium">Upon purchase your client deposits the value of the goods
+                            <div className="flex justify-between items-center">
+                                <img src={feedback} alt="Feedback" className="w-80 rounded-xl"/>
+                                <div className="w-80 text-start">
+                                    <p className="text-white text-lg font-semibold">Forced feedback</p>
+                                    <p className="text-gray-300 font-medium mt-2">Upon purchase your client deposits the value of the goods
                                         and
                                         a
                                         small deposit.
@@ -213,7 +209,7 @@ export default function Open() {
                                 </div>
                             </div>
 
-                            <div className="relative flex justify-between items-center gap-12 pb-12">
+                            <div className="relative flex justify-between items-center gap-8 pb-12">
                                 <img src={dao} alt="Feedback" className="rounded-xl"/>
                                 <div className="absolute text-gray-200 left-12 max-w-md">
                                     <p className="text-lg font-semibold">Integrated DAO</p>
@@ -228,11 +224,9 @@ export default function Open() {
         }
     }
 
-    // <p className="text-center text-3xl font-medium">Open your Transaction</p>
-
     return (
         <Page headerChildren={
-            <p className="text-center text-3xl font-medium">Open your Transaction</p>
+            <p className="text-center text-white text-3xl font-bold">Open your Transaction</p>
         }>
             {content()}
         </Page>

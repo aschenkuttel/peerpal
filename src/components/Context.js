@@ -87,7 +87,8 @@ class PeerProvider extends Component {
                 address: this.state.address,
                 connect: this.connect,
                 openTransaction: this.openTransaction,
-                db: this.db
+                db: this.db,
+                provider: this.provider
             }}>
                 {this.props.children}
             </PeerContext.Provider>

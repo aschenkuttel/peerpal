@@ -61,7 +61,8 @@ export default class Firestore {
             title: title,
             description: description,
             amount: amount.toString(),
-            timestamp: timestamp
+            timestamp: timestamp,
+            completed: false
         })
     }
 }

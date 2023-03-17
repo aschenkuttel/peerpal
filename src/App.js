@@ -14,7 +14,7 @@ function App() {
                 <Route path="/open" element={<Open/>}/>
                 <Route path="/track" element={<Track/>}/>
                 <Route path="/track/:transactionID" element={<TrackTx/>}/>
-                <Route path="/approve" element={<Approve/>}/>
+                <Route path="/approve/:transactionID" element={<Approve/>}/>
             </Routes>
         </div>
     );
