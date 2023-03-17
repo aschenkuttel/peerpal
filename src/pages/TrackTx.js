@@ -1,29 +1,23 @@
 import {useParams} from 'react-router-dom'
 import bg from '../assets/bg.png'
+import {Button} from '../components/Button'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import {useEffect, useContext, useState} from "react"
+import {useEffect, useContext} from "react"
 import {PeerContext} from "../components/Context"
 
-export default function Track() {
-    const {db, address} = useContext(PeerContext)
+export default function TrackTx() {
+    const {db} = useContext(PeerContext)
     const {transactionID} = useParams()
-
-    const [transactions, setTransactions] = useState([]);
-
-    
 
     const people = [
         {transaction: transactionID, state: 'Pending', date: '2023-03-17'},
         // More people...
     ]
 
-
     useEffect(() => {
         (async () => {
-           await db.getTransactions(address)
-           const a = await db.getTransactions(address)
-           setTransactions(a)
+           await db.getTransaction(transactionID)
         })()
     },[])
 
@@ -32,7 +26,6 @@ export default function Track() {
             <Header>
                 <p className="text-center text-3xl font-medium">Track your Transaction</p>
             </Header>
-         
             <div className="relative isolate overflow-hidden pt-14">
                 <img
                     src={bg}
