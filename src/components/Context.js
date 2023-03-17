@@ -45,7 +45,8 @@ class PeerProvider extends Component {
                 logs.args.transactionAddress,
                 title,
                 description,
-                amount
+                amount,
+                logs.args.timestamp.toString()
             )
 
             console.log("done")

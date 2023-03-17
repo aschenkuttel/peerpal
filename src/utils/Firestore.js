@@ -27,13 +27,14 @@ export default class Firestore {
         }
     }
 
-    async insertTransaction (transactionAddress, title, description, amount) {
+    async insertTransaction (transactionAddress, title, description, amount, timestamp) {
         const docRef = doc(this._db, "transactions", transactionAddress)
 
         await setDoc(docRef, {
             title: title,
             description: description,
-            amount: amount.toString()
+            amount: amount.toString(),
+            timestamp: timestamp
         })
     }
 }
