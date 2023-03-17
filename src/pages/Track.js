@@ -11,28 +11,26 @@ export default function Track() {
 
     const [transactions, setTransactions] = useState([]);
 
-    
-
     const people = [
         {transaction: transactionID, state: 'Pending', date: '2023-03-17'},
         // More people...
     ]
 
-
     useEffect(() => {
         (async () => {
-           await db.getTransactions(address)
-           const a = await db.getTransactions(address)
-           setTransactions(a)
+            if (address === null) return
+
+            const fetchedTransactions = await db.getTransactions(address)
+            setTransactions(fetchedTransactions)
         })()
-    },[])
+    }, [db, address])
 
     return (
         <div className="flex-1 bg-gray-900">
             <Header>
                 <p className="text-center text-3xl font-medium">Track your Transaction</p>
             </Header>
-         
+
             <div className="relative isolate overflow-hidden pt-14">
                 <img
                     src={bg}
@@ -95,11 +93,11 @@ export default function Track() {
                                         </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-200 bg-white">
-                                        {people.map((transaction) => (
-                                            <tr key={transaction.transaction}>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{transaction.transaction}</td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{transaction.state}</td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{transaction.date}</td>
+                                        {transactions.map((transaction) => (
+                                            <tr key={transaction.id}>
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{transaction.id}</td>
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{transaction.seller}</td>
+                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{transaction.timestamp}</td>
                                             </tr>
                                         ))}
                                         </tbody>

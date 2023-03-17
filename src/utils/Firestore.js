@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app"
-import {getFirestore, doc, setDoc, getDoc, getDocs, query, where, collection} from "firebase/firestore"
+import {initializeApp} from "firebase/app"
+import {getFirestore, doc, setDoc, getDoc, getDocs, query, where, collection, or} from "firebase/firestore"
 
 export default class Firestore {
     constructor() {
@@ -28,15 +28,23 @@ export default class Firestore {
     }
 
     async getTransactions(walletAddress) {
-        const queryRef = query(
-            collection(this._db, "transactions"),
-            where("seller", "==", walletAddress),
-            where("buyer", "==", walletAddress))
+        console.log(walletAddress)
+        const colRef = collection(this._db, "transactions")
+        const isSeller = query(colRef, where("seller", "==", walletAddress))
+        const isBuyer = query(colRef, where("buyer", "==", walletAddress))
 
+        const [
+            isSellerSnapshot,
+            isBuyerSnapshot
+        ] = await Promise.all([
+            getDocs(isSeller),
+            getDocs(isBuyer)
+        ])
+
+        const transactions = isSellerSnapshot.docs.concat(isBuyerSnapshot.docs)
         const result = []
 
-        const snapshot = await getDocs(queryRef)
-        snapshot.forEach((doc) => {
+        transactions.forEach((doc) => {
             result.push({
                 id: doc.id,
                 ...doc.data()
@@ -46,7 +54,7 @@ export default class Firestore {
         return result
     }
 
-    async insertTransaction (transactionAddress, seller, title, description, amount, timestamp) {
+    async insertTransaction(transactionAddress, seller, title, description, amount, timestamp) {
         const docRef = doc(this._db, "transactions", transactionAddress)
 
         await setDoc(docRef, {
