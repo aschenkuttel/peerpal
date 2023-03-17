@@ -11,6 +11,7 @@ import {PeerContext} from "../components/Context"
 import feedback from "../assets/feedback.png"
 import safeTransaction from "../assets/safe_transaction.png"
 import dao from "../assets/dao.png"
+import Spinner from "../components/Spinner";
 
 
 export default function Open() {
@@ -18,6 +19,7 @@ export default function Open() {
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [amount, setAmount] = useState(BigNumber.from(0))
+    const [loading, setLoading] = useState(false)
 
     // hardcoded for poc
     const selected = {
@@ -30,9 +32,11 @@ export default function Open() {
             <Header>
                 <p className="text-center text-3xl font-medium">Open your Transaction</p>
             </Header>
-            <div className="flex-1 flex flex-col items-center p-4 bg-gray-50">
+            <div className="flex-1 flex flex-col justify-center items-center p-4 bg-gray-50">
 
-                <div className="w-full max-w-2xl py-12">
+                <Spinner className={!loading && "hidden"}/>
+
+                <div className={clsx("w-full max-w-2xl py-12", loading && "hidden")}>
                     <div className="w-full flex flex-col gap-2 bg-gray-100 border border-gray-200 rounded-xl px-8 py-4">
                         <div>
                             <label htmlFor="title" className="block text-sm font-medium leading-6 text-gray-900">
@@ -160,7 +164,12 @@ export default function Open() {
                         <div className="flex justify-center gap-4 mt-2">
                             <Button
                                 disabled={address === null || !title || !description || amount.eq(0)}
-                                onClick={async () => await openTransaction(title, description, amount)} className="w-24">
+                                onClick={async () => {
+                                    setLoading(true)
+                                    const transactionURL = await openTransaction(title, description, amount)
+                                    setLoading(false)
+                                    console.log(transactionURL)
+                                }} className="w-24">
                                 Confirm
                             </Button>
                             <Link to="/" className="w-24 rounded-md bg-white py-2 px-3 text-sm font-semibold text-gray-900
@@ -171,35 +180,40 @@ export default function Open() {
                     </div>
                 </div>
 
-                <p className="text-3xl font-medium mt-4">How it works</p>
+                <div className={loading ? "hidden" : ""}>
+                    <p className="text-3xl font-medium mt-4">How it works</p>
 
-                <div className="w-full max-w-2xl flex flex-col gap-12 mt-8">
-                    <div className="flex justify-between items-center gap-12">
-                        <div className="text-end">
-                            <p className="text-lg font-semibold">Secure your payment</p>
-                            <p className="font-medium">Smart contract locks the funds of your costumer, so you can ship
-                                your goods safely
-                                knowing that you will get paid</p>
+                    <div className="w-full max-w-2xl flex flex-col gap-12 mt-8">
+                        <div className="flex justify-between items-center gap-12">
+                            <div className="text-end">
+                                <p className="text-lg font-semibold">Secure your payment</p>
+                                <p className="font-medium">Smart contract locks the funds of your costumer, so you can
+                                    ship
+                                    your goods safely
+                                    knowing that you will get paid</p>
+                            </div>
+                            <img src={safeTransaction} alt="Safe Transaction" className="max-w-xs rounded-xl"/>
                         </div>
-                        <img src={safeTransaction} alt="Safe Transaction" className="max-w-xs rounded-xl"/>
-                    </div>
 
-                    <div className="flex justify-between items-center gap-12">
-                        <img src={feedback} alt="Feedback" className="max-w-xs rounded-xl"/>
-                        <div>
-                            <p className="text-lg font-semibold">Forced feedback</p>
-                            <p className="font-medium">Upon purchase your client deposits the value of the goods and a
-                                small deposit.
-                                Once the parcel arrives, your client unlocks the money and gets his deposit back.</p>
+                        <div className="flex justify-between items-center gap-12">
+                            <img src={feedback} alt="Feedback" className="max-w-xs rounded-xl"/>
+                            <div>
+                                <p className="text-lg font-semibold">Forced feedback</p>
+                                <p className="font-medium">Upon purchase your client deposits the value of the goods and
+                                    a
+                                    small deposit.
+                                    Once the parcel arrives, your client unlocks the money and gets his deposit
+                                    back.</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div className="relative flex justify-between items-center gap-12 pb-12">
-                        <img src={dao} alt="Feedback" className="rounded-xl"/>
-                        <div className="absolute text-gray-200 left-12 max-w-md">
-                            <p className="text-lg font-semibold">Integrated DAO</p>
-                            <p className="font-medium">DAO mediates flagged transactions with decentralized
-                                decision-making and transparent voting to punish bad actors.</p>
+                        <div className="relative flex justify-between items-center gap-12 pb-12">
+                            <img src={dao} alt="Feedback" className="rounded-xl"/>
+                            <div className="absolute text-gray-200 left-12 max-w-md">
+                                <p className="text-lg font-semibold">Integrated DAO</p>
+                                <p className="font-medium">DAO mediates flagged transactions with decentralized
+                                    decision-making and transparent voting to punish bad actors.</p>
+                            </div>
                         </div>
                     </div>
                 </div>

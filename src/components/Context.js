@@ -43,13 +43,15 @@ class PeerProvider extends Component {
 
             await this.db.insertTransaction(
                 logs.args.transactionAddress,
+                logs.args.owner,
                 title,
                 description,
                 amount,
                 logs.args.timestamp.toString()
             )
 
-            console.log("done")
+            return `http://localhost:3000/track/${logs.args.transactionAddress}`
+
         } catch (error) {
             console.log(error)
         }
