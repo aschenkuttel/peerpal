@@ -12,12 +12,13 @@ export default function Track() {
 
     useEffect(() => {
         (async () => {
+          if(address==null) return
             await db.getTransactions(address)
             const a = await db.getTransactions(address)
             setTransactions(a)
             setLoading(false)
         })()
-    }, [])
+    }, [address])
 
 
     function getTxState(props) {
