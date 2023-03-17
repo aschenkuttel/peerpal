@@ -14,8 +14,10 @@ import dao from "../assets/dao.png"
 
 
 export default function Open() {
-    const {openTransaction} = useContext(PeerContext)
-    const [data, setData] = useState({})
+    const {address, openTransaction} = useContext(PeerContext)
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("")
+    const [amount, setAmount] = useState(BigNumber.from(0))
 
     // hardcoded for poc
     const selected = {
@@ -42,7 +44,7 @@ export default function Open() {
                                     name="title"
                                     id="title"
                                     maxLength="64"
-                                    onChange={(e) => setData({...data, title: e.target.value})}
+                                    onChange={(e) => setTitle(e.target.value)}
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                     placeholder="Productname"
                                 />
@@ -58,7 +60,7 @@ export default function Open() {
                                 name="description"
                                 id="description"
                                 maxLength="240"
-                                onChange={(e) => setData({...data, description: e.target.value})}
+                                onChange={(e) => setDescription(e.target.value)}
                                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                 placeholder="A short description of your product/service"
                             />
@@ -77,9 +79,9 @@ export default function Open() {
                                         id="amount"
                                         onChange={(e) => {
                                             try {
-                                                setData({...data, amount: utils.parseEther(e.target.value)})
+                                                setAmount(utils.parseEther(e.target.value))
                                             } catch (_) {
-                                                setData({...data, amount: BigNumber.from(0)})
+                                                setAmount(BigNumber.from(0))
                                             }
                                         }}
                                         className="flex-1 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -156,7 +158,9 @@ export default function Open() {
                         </div>
 
                         <div className="flex justify-center gap-4 mt-2">
-                            <Button onClick={async () => await openTransaction(data)} className="w-24">
+                            <Button
+                                disabled={address === null || !title || !description || amount.eq(0)}
+                                onClick={async () => await openTransaction(title, description, amount)} className="w-24">
                                 Confirm
                             </Button>
                             <Link to="/" className="w-24 rounded-md bg-white py-2 px-3 text-sm font-semibold text-gray-900
@@ -167,9 +171,9 @@ export default function Open() {
                     </div>
                 </div>
 
-                <p className="text-3xl font-medium mt-8">How it works</p>
+                <p className="text-3xl font-medium mt-4">How it works</p>
 
-                <div className="w-full max-w-2xl flex flex-col gap-12 mt-4">
+                <div className="w-full max-w-2xl flex flex-col gap-12 mt-8">
                     <div className="flex justify-between items-center gap-12">
                         <div className="text-end">
                             <p className="text-lg font-semibold">Secure your payment</p>

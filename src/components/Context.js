@@ -31,7 +31,7 @@ class PeerProvider extends Component {
         }
     }
 
-    openTransaction = async ({title, description, amount}) => {
+    openTransaction = async (title, description, amount) => {
         const signer = await this.factory.connect(this.provider.getSigner())
 
         try {
@@ -83,7 +83,8 @@ class PeerProvider extends Component {
             <PeerContext.Provider value={{
                 address: this.state.address,
                 connect: this.connect,
-                openTransaction: this.openTransaction
+                openTransaction: this.openTransaction,
+                db: this.db
             }}>
                 {this.props.children}
             </PeerContext.Provider>

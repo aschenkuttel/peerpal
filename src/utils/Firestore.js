@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import {getFirestore, doc, setDoc} from "firebase/firestore"
+import {getFirestore, doc, setDoc, getDoc} from "firebase/firestore"
 
 export default class Firestore {
     constructor() {
@@ -14,6 +14,17 @@ export default class Firestore {
 
         this._app = initializeApp(firebaseConfig)
         this._db = getFirestore(this._app)
+    }
+
+    async getTransaction(transactionAddress) {
+        const docRef = doc(this._db, "transactions", transactionAddress)
+        const snapshot = await getDoc(docRef)
+
+        if (snapshot.exists()) {
+            return snapshot.data()
+        } else {
+            return null
+        }
     }
 
     async insertTransaction (transactionAddress, title, description, amount) {
