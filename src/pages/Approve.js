@@ -16,7 +16,7 @@ import Invalid from "../components/Invalid"
 export default function Approve() {
     const {transactionID} = useParams()
     const navigate = useNavigate()
-    const {address, db, approve, approveTransaction, provider} = useContext(PeerContext)
+    const {address, db, approve, deposit, provider} = useContext(PeerContext)
     const [transaction, setTransaction] = useState(null)
     const [loading, setLoading] = useState(true)
     const [approved, setApproved] = useState(false)
@@ -136,7 +136,7 @@ export default function Approve() {
                                     disabled={address === null || !approved}
                                     onClick={async () => {
                                         setLoading(true)
-                                        const response = await approveTransaction(transactionID)
+                                        const response = await deposit(transactionID)
 
                                         if (response) {
                                             await navigate(`/track/${transactionID}`)

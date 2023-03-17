@@ -65,4 +65,9 @@ export default class Firestore {
             completed: false
         })
     }
+
+    async updateTransaction(transactionAddress, newData) {
+        const docRef = doc(this._db, "transactions", transactionAddress)
+        await setDoc(docRef, newData, {merge: true})
+    }
 }
