@@ -2,6 +2,7 @@ import {Component, createContext} from "react"
 import {ethers} from "ethers"
 import factoryABI from "../assets/ABI/Factory.json"
 import ERC20ABI from "../assets/ABI/ERC20.json"
+import transactionABI from "../assets/ABI/Transaction.json"
 import Firestore from "../utils/Firestore"
 
 const PeerContext = createContext(null)
@@ -73,6 +74,20 @@ class PeerProvider extends Component {
         }
     }
 
+    deposit = async(transactionID) => {
+        const contract = new ethers.Contract(transactionID, transactionABI)
+        const signer = await contract.connect(this.provider.getSigner())
+
+        try {
+            const response = await signer.deposit()
+            await response.wait()
+            return true
+        } catch (error) {
+            console.log(error)
+            return true
+        }
+    }
+
     async componentDidMount() {
         if (window.ethereum) {
             this.provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -104,6 +119,7 @@ class PeerProvider extends Component {
                 connect: this.connect,
                 openTransaction: this.openTransaction,
                 approve: this.approve,
+                deposit: this.deposit,
                 db: this.db,
                 provider: this.provider
             }}>

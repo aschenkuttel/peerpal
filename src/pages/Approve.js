@@ -1,5 +1,5 @@
 import {Fragment, useContext, useEffect, useState} from "react"
-import {Link, useParams} from "react-router-dom"
+import {Link, useParams, useNavigate} from "react-router-dom"
 import {PeerContext} from "../components/Context"
 import {ethers} from "ethers"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
@@ -11,10 +11,12 @@ import trust from "../assets/trust.png"
 import scam from "../assets/scam.png"
 import dao from "../assets/dao.png"
 import ERC20ABI from "../assets/ABI/ERC20.json"
+import Invalid from "./404"
 
 export default function Approve() {
     const {transactionID} = useParams()
-    const {address, db, approve, provider} = useContext(PeerContext)
+    const navigate = useNavigate()
+    const {address, db, approve, approveTransaction, provider} = useContext(PeerContext)
     const [transaction, setTransaction] = useState(null)
     const [loading, setLoading] = useState(true)
     const [approved, setApproved] = useState(false)
@@ -26,10 +28,8 @@ export default function Approve() {
             const transaction = await db.getTransaction(transactionID)
 
             if (transaction === null) {
-                console.log("wrong id")
+                setLoading(false)
             } else {
-                console.log("call set")
-
                 const currencyContract = new ethers.Contract(
                     "0xb106ed7587365a16b6691a3D4B2A734f4E8268a2",
                     ERC20ABI
@@ -37,8 +37,7 @@ export default function Approve() {
 
                 const signer = await currencyContract.connect(provider.getSigner())
                 const allowance = await signer.allowance(address, transactionID)
-                console.log(allowance.toString())
-                console.log(transaction.amount.toString())
+
                 if (allowance.gte(transaction.amount)) {
                     setApproved(true)
                 }
@@ -52,6 +51,8 @@ export default function Approve() {
     const content = () => {
         if (loading) {
             return <Spinner/>
+        } else if (transaction === null) {
+            return <Invalid/>
         } else {
             return (
                 <Fragment>
@@ -132,9 +133,15 @@ export default function Approve() {
                                 </Button>
 
                                 <Button
-                                    disabled={address === null}
+                                    disabled={address === null || !approved}
                                     onClick={async () => {
                                         setLoading(true)
+                                        const response = await approveTransaction(transactionID)
+
+                                        if (response) {
+                                            await navigate(`/track/${transactionID}`)
+                                        }
+
                                     }} className="w-24">
                                     Confirm
                                 </Button>

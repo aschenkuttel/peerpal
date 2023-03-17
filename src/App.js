@@ -5,6 +5,7 @@ import Open from "./pages/Open"
 import Track from "./pages/Track"
 import TrackTx from './pages/TrackTx'
 import Approve from "./pages/Approve"
+import Invalid from "./pages/404"
 
 function App() {
     return (
@@ -15,9 +16,10 @@ function App() {
                 <Route path="/track" element={<Track/>}/>
                 <Route path="/track/:transactionID" element={<TrackTx/>}/>
                 <Route path="/approve/:transactionID" element={<Approve/>}/>
+                <Route path="*" element={<Invalid/>}/>
             </Routes>
         </div>
-    );
+    )
 }
 
 export default App;
