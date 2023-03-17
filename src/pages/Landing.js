@@ -9,8 +9,8 @@ export default function Landing() {
         <div className="relative flex flex-col flex-1 bg-gray-900">
             <Header className="bg-transparent border-b-0 shadow-none"/>
 
-            <div className="relative flex justify-center items-center flex-1 isolate overflow-hidden">
-                <div className="absolute z-50 mx-auto max-w-2xl">
+            <div className="z-10 w-full h-full flex justify-center items-center flex-1 isolate overflow-hidden">
+                <div className="mx-auto max-w-2xl">
                     <div className="text-center">
                         <h1 className="text-4xl font-bold tracking-tight text-slate-300 sm:text-6xl">
                             A trustless and safe way to ensure your transactions are honored!
@@ -36,8 +36,8 @@ export default function Landing() {
                         </div>
                     </div>
                 </div>
-
             </div>
+
             <Footer className="bg-transparent border-t-0 shadow-none text-gray-200"/>
 
             {/*background image + svgs*/}
@@ -99,7 +99,7 @@ export default function Landing() {
                 <img
                     src={bg}
                     alt=""
-                    className="absolute inset-0 -z-10 h-full w-full object-cover opacity-25"
+                    className="absolute inset-0 h-full w-full object-cover opacity-20 mix-blend-color-burn"
                 />
             </div>
 
