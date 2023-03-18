@@ -68,7 +68,6 @@ export default function Track() {
                                     <FontAwesomeIcon icon={faChevronRight} className="shrink-0 text-gray-400"/>
                                     <Link
                                         to="/track"
-                                        disabled={true}
                                         className="ml-4 text-sm font-medium text-gray-500 pointer-events-none">
                                         Track
                                     </Link>

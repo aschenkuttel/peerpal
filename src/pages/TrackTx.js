@@ -57,7 +57,7 @@ export default function TrackTx() {
                                     <FontAwesomeIcon icon={faChevronRight} className="shrink-0 text-gray-400"/>
                                     <Link
                                         to="/track"
-                                        className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
+                                        className="ml-4 text-sm font-medium text-gray-500  hover:text-gray-700"
                                     >
                                         Track
                                     </Link>
@@ -68,8 +68,8 @@ export default function TrackTx() {
                                 <div className="flex items-center">
                                     <FontAwesomeIcon icon={faChevronRight} className="shrink-0 text-gray-400"/>
                                     <Link
-                                        to='/' disabled={true}
-                                        className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
+                                        to='/'
+                                        className="ml-4 text-sm font-medium text-gray-500 pointer-events-none"
                                     >
                                         {receivedTx.id}
                                     </Link>
