@@ -1,3 +1,5 @@
+import {ethers, BigNumber} from "ethers"
+
 function dateFormat(timestamp) {
     const time = new Date(parseInt(timestamp) * 1000);
     const day = time.getDate();
@@ -17,7 +19,13 @@ function linkifyTx(tx) {
     return `0x...${txF}`;
 }
 
+function amountFormat(amount){
+    const value=ethers.utils.formatEther(BigNumber.from(amount));
+    return `${value} EURe`;
+}
+
 export {
     dateFormat,
-    linkifyTx
+    linkifyTx,
+    amountFormat
 }

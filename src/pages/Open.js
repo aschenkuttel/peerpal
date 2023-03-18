@@ -31,7 +31,7 @@ export default function Open() {
 
     const content = () => {
         if (loading) {
-            return <Spinner/>
+            return <PeerLoader/>
         } else if (transactionID) {
             const transactionURL = `http://localhost:3000/approve/${transactionID}`
 
