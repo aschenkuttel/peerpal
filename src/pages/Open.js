@@ -33,7 +33,7 @@ export default function Open() {
         if (loading) {
             return <PeerLoader/>
         } else if (transactionID) {
-            const transactionURL = `http://localhost:3000/approve/${transactionID}`
+            const transactionURL = `https://peerpal.me/approve/${transactionID}`
 
             return (
                 <div className="flex flex-col gap-4">

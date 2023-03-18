@@ -30,7 +30,7 @@ export default function TrackTx() {
             }
             setLoading(false)
         })()
-    }, [address])
+    }, [address, db, transactionID])
 
 
     const content = () => {
@@ -42,17 +42,17 @@ export default function TrackTx() {
             return <div className="w-full max-w-5xl">
                 <div className="sm:flex sm:items-center">
                     <nav className="flex ml-2.5 mb-2.5" aria-label="Breadcrumb">
-                        <ol role="list" className="flex items-center space-x-4">
-                            <li>
+                        <div role="list" className="flex items-center space-x-4">
+                            <div>
                                 <div>
                                     <Link to="/" className="text-gray-400 hover:text-gray-500">
                                         <FontAwesomeIcon icon={faHouse}/>
                                         <span className="sr-only">Home</span>
                                     </Link>
                                 </div>
-                            </li>
+                            </div>
 
-                            <li>
+                            <div>
                                 <div className="flex items-center">
                                     <FontAwesomeIcon icon={faChevronRight} className="shrink-0 text-gray-400"/>
                                     <Link
@@ -62,9 +62,9 @@ export default function TrackTx() {
                                         Track
                                     </Link>
                                 </div>
-                            </li>
+                            </div>
 
-                            <li>
+                            <div>
                                 <div className="flex items-center">
                                     <FontAwesomeIcon icon={faChevronRight} className="shrink-0 text-gray-400"/>
                                     <Link
@@ -74,8 +74,8 @@ export default function TrackTx() {
                                         {receivedTx.id}
                                     </Link>
                                 </div>
-                            </li>
-                        </ol>
+                            </div>
+                        </div>
                     </nav>
                 </div>
 
