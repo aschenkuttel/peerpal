@@ -1,7 +1,8 @@
 import {Fragment, useContext, useState} from "react"
 import {Listbox, Transition} from "@headlessui/react"
 import {Link} from "react-router-dom"
-import {CheckIcon, ChevronUpDownIcon} from '@heroicons/react/20/solid'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faCheck, faChevronDown, faClipboard} from "@fortawesome/free-solid-svg-icons"
 import {BigNumber, utils} from "ethers"
 import clsx from "clsx"
 import {Button} from "../components/Button"
@@ -11,6 +12,7 @@ import safeTransaction from "../assets/safe_transaction.png"
 import dao from "../assets/dao.png"
 import Spinner from "../components/Spinner"
 import Page from "../components/Page"
+import {ButtonLink} from "../components/Button"
 
 
 export default function Open() {
@@ -19,7 +21,7 @@ export default function Open() {
     const [description, setDescription] = useState("")
     const [amount, setAmount] = useState(BigNumber.from(0))
     const [loading, setLoading] = useState(false)
-    const [transactionURL, setTransactionURL] = useState("")
+    const [transactionID, setTransactionID] = useState("")
 
     // hardcoded for poc
     const selected = {
@@ -30,8 +32,30 @@ export default function Open() {
     const content = () => {
         if (loading) {
             return <Spinner/>
-        } else if (transactionURL) {
-            return <a href={transactionURL} rel="noopener">{transactionURL}</a>
+        } else if (transactionID) {
+            const transactionURL = `http://localhost:3000/approve/${transactionID}`
+
+            return (
+                <div className="flex flex-col gap-4">
+
+                    <p className="text-center text-white text-2xl font-semibold mb-8">
+                        You successfully opened a Transaction!
+                    </p>
+
+                    <div className="block rounded-md border-0 px-2.5 py-1.5 bg-gray-700 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 sm:text-sm sm:leading-6">
+                        {transactionURL}
+                    </div>
+
+                    <div className="flex gap-4">
+                        <Button onClick={() => navigator.clipboard.writeText(transactionURL)}>
+                            <FontAwesomeIcon icon={faClipboard}/>
+                        </Button>
+                        <ButtonLink to={`/track/${transactionID}`} className="flex-1">
+                            Track your Transaction
+                        </ButtonLink>
+                    </div>
+                </div>
+            )
         } else {
             return (
                 <Fragment>
@@ -110,7 +134,7 @@ export default function Open() {
                                                         <span className="block truncate">{selected.symbol}</span>
                                                         <span
                                                             className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true"/>
+                <FontAwesomeIcon icon={faChevronDown} className="text-gray-400"/>
                 </span>
                                                     </Listbox.Button>
 
@@ -147,7 +171,7 @@ export default function Open() {
                                                                                         'absolute inset-y-0 right-0 flex items-center pr-4'
                                                                                     )}
                                                                                 >
-                            <CheckIcon className="h-5 w-5" aria-hidden="true"/>
+                            <FontAwesomeIcon icon={faCheck}/>
                           </span>
                                                                             ) : null}
                                                                         </>
@@ -168,8 +192,8 @@ export default function Open() {
                                     disabled={address === null || !title || !description || amount.eq(0)}
                                     onClick={async () => {
                                         setLoading(true)
-                                        const transactionURL = await openTransaction(title, description, amount)
-                                        setTransactionURL(transactionURL)
+                                        const transactionID = await openTransaction(title, description, amount)
+                                        setTransactionID(transactionID)
                                         setLoading(false)
                                     }} className="w-24">
                                     Confirm
@@ -187,7 +211,8 @@ export default function Open() {
                             <div className="flex justify-between items-center">
                                 <div className="w-80 text-end">
                                     <p className="text-white text-lg font-semibold">Secure your payment</p>
-                                    <p className="text-gray-300 font-medium mt-2">Smart contract locks the funds of your costumer, so you
+                                    <p className="text-gray-300 font-medium mt-2">Smart contract locks the funds of your
+                                        costumer, so you
                                         can
                                         ship
                                         your goods safely
@@ -200,7 +225,8 @@ export default function Open() {
                                 <img src={feedback} alt="Feedback" className="w-80 rounded-xl"/>
                                 <div className="w-80 text-start">
                                     <p className="text-white text-lg font-semibold">Forced feedback</p>
-                                    <p className="text-gray-300 font-medium mt-2">Upon purchase your client deposits the value of the goods
+                                    <p className="text-gray-300 font-medium mt-2">Upon purchase your client deposits the
+                                        value of the goods
                                         and
                                         a
                                         small deposit.

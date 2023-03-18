@@ -52,7 +52,7 @@ class PeerProvider extends Component {
                 logs.args.timestamp.toString()
             )
 
-            return `http://localhost:3000/approve/${logs.args.transactionAddress}`
+            return logs.args.transactionAddress
 
         } catch (error) {
             console.log(error)

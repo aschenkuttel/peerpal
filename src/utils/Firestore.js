@@ -58,6 +58,7 @@ export default class Firestore {
 
         await setDoc(docRef, {
             seller: seller,
+            buyer: null,
             title: title,
             description: description,
             amount: amount.toString(),

@@ -1,7 +1,7 @@
 import {Fragment, useContext, useEffect, useState} from "react"
-import {Link, useParams, useNavigate} from "react-router-dom"
+import {useParams, useNavigate} from "react-router-dom"
 import {PeerContext} from "../components/Context"
-import {ethers} from "ethers"
+import {ethers, BigNumber} from "ethers"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faCheck} from "@fortawesome/free-solid-svg-icons"
 import Page from "../components/Page"
@@ -51,7 +51,7 @@ export default function Approve() {
     const content = () => {
         if (loading) {
             return <Spinner/>
-        } else if (transaction === null) {
+        } else if (transaction === null || transaction.buyer !== null) {
             return <Invalid/>
         } else {
             return (
@@ -97,7 +97,7 @@ export default function Approve() {
                                         type="text"
                                         name="amount"
                                         id="amount"
-                                        value={transaction.amount.toString()}
+                                        value={ethers.utils.formatEther(BigNumber.from(transaction.amount)) + " EURe"}
                                         disabled={true}
                                         className="flex-1 block w-full rounded-md border-0 py-1.5 bg-gray-700 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                                     />
@@ -152,13 +152,10 @@ export default function Approve() {
                     <div className="w-full max-w-2xl flex flex-col gap-8">
                         <div className="flex justify-between items-center">
                             <div className="w-80 text-end">
-                                <p className="text-white text-lg font-semibold">Secure your payment</p>
-                                <p className="text-gray-300 font-medium mt-2">Smart contract locks the funds of your
-                                    costumer, so you
-                                    can
-                                    ship
-                                    your goods safely
-                                    knowing that you will get paid</p>
+                                <p className="text-white text-lg font-semibold">Avoid Scams</p>
+                                <p className="text-gray-300 font-medium mt-2">
+                                    Control the flow of your funds, by only releasing them once you get what you purchased
+                                </p>
                             </div>
                             <img src={scam} alt="Safe Transaction" className="w-80 rounded-xl"/>
                         </div>
@@ -166,14 +163,11 @@ export default function Approve() {
                         <div className="flex justify-between items-center">
                             <img src={trust} alt="Feedback" className="w-80 rounded-xl"/>
                             <div className="w-80 text-start">
-                                <p className="text-white text-lg font-semibold">Forced feedback</p>
-                                <p className="text-gray-300 font-medium mt-2">Upon purchase your client deposits the
-                                    value of the goods
-                                    and
-                                    a
-                                    small deposit.
-                                    Once the parcel arrives, your client unlocks the money and gets his deposit
-                                    back.</p>
+                                <p className="text-white text-lg font-semibold">Fairness</p>
+                                <p className="text-gray-300 font-medium mt-2">
+                                    when purchasing a good/service you lock it’s price plus a small deposit into a smart contract.
+                                    Once you confirm the deliverance of the purchasse, you have to release the funds back to the seller and recieve back your deposit
+                                </p>
                             </div>
                         </div>
 

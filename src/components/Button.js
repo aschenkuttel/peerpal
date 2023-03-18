@@ -32,7 +32,7 @@ function ButtonLink({to, children, className, disabled}) {
         <Link
             to={to}
             disabled={disabled}
-            className={clsx("rounded-md bg-blue-600 py-2 px-3 text-sm font-semibold text-white shadow-sm",
+            className={clsx("flex justify-center rounded-md bg-blue-600 py-2 px-3 text-sm font-semibold text-white shadow-sm",
                 "hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2",
                 "focus-visible:outline-blue-600 disabled:opacity-50 disabled:bg-gray-500 disabled:cursor-not-allowed", className)}>
             {children}

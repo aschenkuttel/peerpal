@@ -7,9 +7,8 @@ import {dateFormat, linkifyTx} from "../utils/parse"
 
 export default function Track() {
     const {db, address} = useContext(PeerContext)
-    const [transactions, setTransactions] = useState([]);
-    const [loading, setLoading] = useState(true);
-
+    const [transactions, setTransactions] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         (async () => {
@@ -20,7 +19,6 @@ export default function Track() {
             setLoading(false)
         })()
     }, [address])
-
 
     function getTxState(props) {
         if (props.seller && props.buyer && !props.completed) {
@@ -50,52 +48,52 @@ export default function Track() {
         <Page>
             {
                 !loading &&
-                <div className="w-full max-w-5xl overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-                    <table className="min-w-full divide-y divide-gray-300 rounded-xl">
+                <div className="w-full max-w-5xl overflow-hidden shadow border border-gray-800 rounded-xl">
+                    <table className="min-w-full divide-y divide-gray-700 rounded-xl">
                         <thead className="bg-gray-800">
                         <tr>
                             <th scope="col"
-                                className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-200 sm:pl-6">
                                 Transaction
                             </th>
                             <th scope="col"
-                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
                                 Owner
                             </th>
                             <th scope="col"
-                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
                                 Buyer
                             </th>
                             <th scope="col"
-                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
                                 State
                             </th>
                             <th scope="col"
-                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
                                 Date Issued
                             </th>
                         </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-200 bg-gray-700">
+                        <tbody className="divide-y divide-gray-700 bg-gray-800">
                         {transactions.map((transaction) => (
                             <tr key={transaction.id}>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                                    <ButtonLink to={`/track/${transaction.id}`}
-                                          className="rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-slate-300 shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400">
+                                <td className="whitespace-nowrap px-3 py-4">
+                                    <ButtonLink to={`/track/${transaction.id}`} className="w-32">
                                         {linkifyTx(transaction.id)}
                                     </ButtonLink>
-
                                 </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
                                     {linkifyTx(transaction.seller)}
                                 </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
                                     {transaction.buyer ? linkifyTx(transaction.buyer) : "No buyer yet"}
                                 </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
                                     {getTxState(transaction)}
                                 </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{dateFormat(transaction.timestamp)}</td>
+                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
+                                    {dateFormat(transaction.timestamp)}
+                                </td>
                             </tr>
                         ))}
                         </tbody>
