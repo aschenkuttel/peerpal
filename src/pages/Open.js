@@ -10,7 +10,7 @@ import {PeerContext} from "../components/Context"
 import feedback from "../assets/feedback.png"
 import safeTransaction from "../assets/safe_transaction.png"
 import dao from "../assets/dao.png"
-import Spinner from "../components/Spinner"
+import PeerLoader from "../components/PeerLoader"
 import Page from "../components/Page"
 import {ButtonLink} from "../components/Button"
 

@@ -1,7 +1,10 @@
 import {useEffect, useContext, useState} from "react"
+import {Link} from "react-router-dom";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import {faChevronRight, faHouse} from "@fortawesome/free-solid-svg-icons"
 import {PeerContext} from "../components/Context"
 import Page from '../components/Page'
-import Spinner from '../components/Spinner'
+import PeerLoader from "../components/PeerLoader"
 import {ButtonLink} from "../components/Button"
 import {dateFormat, linkifyTx} from "../utils/parse"
 
@@ -48,61 +51,88 @@ export default function Track() {
         <Page>
             {
                 !loading &&
-                <div className="w-full max-w-5xl overflow-hidden shadow border border-gray-800 rounded-xl">
-                    <table className="min-w-full divide-y divide-gray-700 rounded-xl">
-                        <thead className="bg-gray-800">
-                        <tr>
-                            <th scope="col"
-                                className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-200 sm:pl-6">
-                                Transaction
-                            </th>
-                            <th scope="col"
-                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
-                                Owner
-                            </th>
-                            <th scope="col"
-                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
-                                Buyer
-                            </th>
-                            <th scope="col"
-                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
-                                State
-                            </th>
-                            <th scope="col"
-                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
-                                Date Issued
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-700 bg-gray-800">
-                        {transactions.map((transaction) => (
-                            <tr key={transaction.id}>
-                                <td className="whitespace-nowrap px-3 py-4">
-                                    <ButtonLink to={`/track/${transaction.id}`} className="w-32">
-                                        {linkifyTx(transaction.id)}
-                                    </ButtonLink>
-                                </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
-                                    {linkifyTx(transaction.seller)}
-                                </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
-                                    {transaction.buyer ? linkifyTx(transaction.buyer) : "No buyer yet"}
-                                </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
-                                    {getTxState(transaction)}
-                                </td>
-                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
-                                    {dateFormat(transaction.timestamp)}
-                                </td>
+                <div className="w-full max-w-5xl">
+                    <nav className="flex ml-2.5 mb-2.5" aria-label="Breadcrumb">
+                        <ol role="list" className="flex items-center space-x-4">
+                            <li>
+                                <div>
+                                    <Link to="/" className="text-gray-400 hover:text-gray-500">
+                                        <FontAwesomeIcon icon={faHouse}/>
+                                        <span className="sr-only">Home</span>
+                                    </Link>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div className="flex items-center">
+                                    <FontAwesomeIcon icon={faChevronRight} className="shrink-0 text-gray-400"/>
+                                    <Link
+                                        to="/track"
+                                        disabled={true}
+                                        className="ml-4 text-sm font-medium text-gray-500 pointer-events-none">
+                                        Track
+                                    </Link>
+                                </div>
+                            </li>
+                        </ol>
+                    </nav>
+
+                    <div className="overflow-hidden shadow border border-gray-800 rounded-xl">
+                        <table className="min-w-full divide-y divide-gray-700 rounded-xl">
+                            <thead className="bg-gray-800">
+                            <tr>
+                                <th scope="col"
+                                    className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-200 sm:pl-6">
+                                    Transaction
+                                </th>
+                                <th scope="col"
+                                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                                    Owner
+                                </th>
+                                <th scope="col"
+                                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                                    Buyer
+                                </th>
+                                <th scope="col"
+                                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                                    State
+                                </th>
+                                <th scope="col"
+                                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                                    Date Issued
+                                </th>
                             </tr>
-                        ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="divide-y divide-gray-700 bg-gray-800">
+                            {transactions.map((transaction) => (
+                                <tr key={transaction.id}>
+                                    <td className="whitespace-nowrap px-3 py-4">
+                                        <ButtonLink to={`/track/${transaction.id}`} className="w-32">
+                                            {linkifyTx(transaction.id)}
+                                        </ButtonLink>
+                                    </td>
+                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
+                                        {linkifyTx(transaction.seller)}
+                                    </td>
+                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
+                                        {transaction.buyer ? linkifyTx(transaction.buyer) : "No buyer yet"}
+                                    </td>
+                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
+                                        {getTxState(transaction)}
+                                    </td>
+                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
+                                        {dateFormat(transaction.timestamp)}
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             }
             {
                 loading &&
-                <Spinner/>
+                <PeerLoader/>
             }
 
         </Page>

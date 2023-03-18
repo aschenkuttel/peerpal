@@ -5,7 +5,7 @@ import {ethers, BigNumber} from "ethers"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faCheck} from "@fortawesome/free-solid-svg-icons"
 import Page from "../components/Page"
-import Spinner from "../components/Spinner"
+import PeerLoader from "../components/PeerLoader"
 import {Button} from "../components/Button"
 import trust from "../assets/trust.png"
 import scam from "../assets/scam.png"
@@ -50,7 +50,7 @@ export default function Approve() {
 
     const content = () => {
         if (loading) {
-            return <Spinner/>
+            return <PeerLoader/>
         } else if (transaction === null || transaction.buyer !== null) {
             return <Invalid/>
         } else {
