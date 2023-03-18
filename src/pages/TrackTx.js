@@ -1,5 +1,6 @@
 import {Link, useParams} from 'react-router-dom'
 import {Fragment, useContext, useEffect, useState} from "react"
+import clsx from "clsx"
 import {PeerContext} from "../components/Context"
 import Page from '../components/Page'
 import PeerLoader from '../components/PeerLoader'
@@ -12,12 +13,10 @@ import {Button} from '../components/Button'
 
 
 export default function TrackTx() {
-    const {db, address} = useContext(PeerContext)
+    const {db, address, confirm, cancel} = useContext(PeerContext)
     const {transactionID} = useParams()
     const [receivedTx, setReceivedTx] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [isBuyer, setBuyer] = useState(false);
-    const [isSeller, setSeller] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -42,7 +41,6 @@ export default function TrackTx() {
         } else {
             return <div className="w-full max-w-5xl">
                 <div className="sm:flex sm:items-center">
-
                     <nav className="flex ml-2.5 mb-2.5" aria-label="Breadcrumb">
                         <ol role="list" className="flex items-center space-x-4">
                             <li>
@@ -99,18 +97,19 @@ export default function TrackTx() {
 
                     <div className="flex mt-5 max-w-2xl w-full">
                         <div className="flex flex-col items-center">
-                            <FontAwesomeIcon fixedWidth icon={faEthereum} className="text-7xl text-gray-400 shrink-0"/>
+                            <FontAwesomeIcon fixedWidth icon={faEthereum}
+                                             className={clsx("text-7xl text-green-600 shrink-0", !receivedTx.buyer && !receivedTx.completed && "animate-pulse")}/>
                             <p className="text-slate-200 mt-2">Open</p>
                         </div>
-                        <div className="flex-1 h-16 border-b-2 border-gray-400 mx-8"/>
+                        <div className="flex-1 h-12 border-b-2 border-gray-400 mx-8"/>
                         <div className="flex flex-col items-center">
                             <FontAwesomeIcon fixedWidth icon={faArrowsRotate}
-                                             className="text-7xl text-gray-400 shrink-0"/>
+                                             className={clsx("text-7xl text-gray-400 shrink-0", receivedTx.buyer && "text-green-600", receivedTx.buyer && !receivedTx.completed && "animate-pulse")}/>
                             <p className="text-slate-200 mt-2">On-Going</p>
                         </div>
-                        <div className="flex-1 h-16 border-b-2 border-gray-400 mx-8"/>
+                        <div className="flex-1 h-12 border-b-2 border-gray-400 mx-8"/>
                         <div className="flex flex-col items-center">
-                            <FontAwesomeIcon fixedWidth icon={faCheck} className="text-7xl text-gray-400 shrink-0"/>
+                            <FontAwesomeIcon fixedWidth icon={faCheck} className={clsx("text-7xl text-gray-400 shrink-0", receivedTx.completed && "text-green-600")}/>
                             <p className="text-slate-200 mt-2">Finished</p>
                         </div>
                     </div>
@@ -124,8 +123,18 @@ export default function TrackTx() {
                                 </Fragment>
                                 :
                                 <Fragment>
-                                    <Button className="w-32">Received</Button>
-                                    <Button className="w-32">Cancel</Button>
+                                    <Button onClick={async () => {
+                                        setLoading(true)
+                                        await confirm(receivedTx.id)
+                                        setLoading(false)
+                                        setReceivedTx(receivedTx)
+                                    }} disabled={receivedTx.completed} className="w-32">Received</Button>
+
+                                    <Button onClick={async () => {
+                                        setLoading(true)
+                                        await cancel(receivedTx.id)
+                                        setLoading(false)
+                                    }} disabled={receivedTx.completed} className="w-32">Cancel</Button>
                                 </Fragment>
                         }
                     </div>

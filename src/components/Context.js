@@ -89,6 +89,35 @@ class PeerProvider extends Component {
         }
     }
 
+    confirm = async (transactionID) => {
+        const contract = new ethers.Contract(transactionID, transactionABI)
+        const signer = await contract.connect(this.provider.getSigner())
+
+        try {
+            const response = await signer.confirm()
+            await response.wait()
+            await this.db.updateTransaction(transactionID,{completed: true})
+            return true
+        } catch (error) {
+            console.log(error)
+            return true
+        }
+    }
+
+    cancel = async (transactionID) => {
+        const contract = new ethers.Contract(transactionID, transactionABI)
+        const signer = await contract.connect(this.provider.getSigner())
+
+        try {
+            const response = await signer.cancel()
+            await response.wait()
+            return true
+        } catch (error) {
+            console.log(error)
+            return true
+        }
+    }
+
     async componentDidMount() {
         if (window.ethereum) {
             this.provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -121,6 +150,8 @@ class PeerProvider extends Component {
                 openTransaction: this.openTransaction,
                 approve: this.approve,
                 deposit: this.deposit,
+                confirm: this.confirm,
+                cancel: this.cancel,
                 db: this.db,
                 provider: this.provider
             }}>
