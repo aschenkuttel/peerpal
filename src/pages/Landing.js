@@ -5,7 +5,7 @@ export default function Landing() {
     return (
         <Page>
             <div className="mx-auto max-w-2xl">
-                <div className="text-center">
+                <div className="text-center p-4">
                 <h1 className="text-4xl font-bold tracking-tight text-slate-300 sm:text-6xl">
                         Welcome to <span className='text-blue-600'>PeerPal</span>
                     </h1>
@@ -20,12 +20,12 @@ export default function Landing() {
                         of bad acting will be taken care by our dedicated community of trusted mediators within our
                         DAO.
                     </p>
-                    <div className="flex mt-10 justify-center gap-8">
-                        <ButtonLink to="/open" className="w-72">
+                    <div className="flex flex-col mt-10 justify-center gap-4 sm:gap-8 sm:flex-row">
+                        <ButtonLink to="/open" className="sm:w-72">
                             Get started
                         </ButtonLink>
                         {/*<p className="text-slate-400">or</p>*/}
-                        <ButtonLink to='/track' className="w-72">
+                        <ButtonLink to='/track' className="sm:w-72">
                             Track your Transactions!
                         </ButtonLink>
                     </div>

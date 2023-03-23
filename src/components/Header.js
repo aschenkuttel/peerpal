@@ -20,7 +20,7 @@ export default function Header({children, className}) {
 
                 {children}
 
-                <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+                <div className="flex">
                     <ConnectButton/>
                 </div>
             </nav>
