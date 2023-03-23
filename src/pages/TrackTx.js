@@ -11,7 +11,6 @@ import {faEthereum} from '@fortawesome/free-brands-svg-icons'
 import {amountFormat, dateFormat} from '../utils/parse'
 import {Button} from '../components/Button'
 
-
 export default function TrackTx() {
     const {db, address, confirm, cancel} = useContext(PeerContext)
     const {transactionID} = useParams()
@@ -31,7 +30,6 @@ export default function TrackTx() {
             setLoading(false)
         })()
     }, [address, db, transactionID])
-
 
     const content = () => {
         if (loading) {
@@ -78,42 +76,37 @@ export default function TrackTx() {
                         </div>
                     </nav>
                 </div>
-
                 <div
                     className="flex flex-col items-center h-full bg-gray-800 border border-gray-700 rounded-xl px-8 py-4 gap-12">
-
                     <div className="flex flex-1 justify-between w-full">
                         <div className="text-start">
                             <p className="text-gray-400 mt-2 font-semibold text-2xl">Product: {receivedTx.title}</p>
                             <p className="text-slate-200 mt-2 max-w-lg">Description: {receivedTx.description}</p>
                         </div>
-                        <div className="text-end">
+                        <div className="hidden text-end sm:block">
                             <p className="text-slate-200 mt-2 align-right">Date
                                 Issued: {dateFormat(receivedTx.timestamp)}</p>
                             <p className="text-slate-200 mt-2 align-right">Amount: {amountFormat(receivedTx.amount)}</p>
                         </div>
-
                     </div>
-
                     <div className="flex mt-5 max-w-2xl w-full">
                         <div className="flex flex-col items-center">
                             <FontAwesomeIcon fixedWidth icon={faEthereum}
-                                             className={clsx("text-7xl text-green-600 shrink-0", !receivedTx.buyer && !receivedTx.completed && "animate-pulse")}/>
+                                             className={clsx("text-2xl text-green-600 shrink-0 sm:text-5xl lg:text-7xl", !receivedTx.buyer && !receivedTx.completed && "animate-pulse")}/>
                             <p className="text-slate-200 mt-2">Open</p>
                         </div>
-                        <div className="flex-1 h-12 border-b-2 border-gray-400 mx-8"/>
+                        <div className="flex-1 h-7 border-b-2 border-gray-400 mx-8 sm:h-10 lg:h-12"/>
                         <div className="flex flex-col items-center">
                             <FontAwesomeIcon fixedWidth icon={faArrowsRotate}
-                                             className={clsx("text-7xl text-gray-400 shrink-0", receivedTx.buyer && "text-green-600", receivedTx.buyer && !receivedTx.completed && "animate-pulse")}/>
+                                             className={clsx("text-2xl text-gray-400 shrink-0 sm:text-5xl lg:text-7xl", receivedTx.buyer && "text-green-600", receivedTx.buyer && !receivedTx.completed && "animate-pulse")}/>
                             <p className="text-slate-200 mt-2">On-Going</p>
                         </div>
-                        <div className="flex-1 h-12 border-b-2 border-gray-400 mx-8"/>
+                        <div className="flex-1 h-7 border-b-2 border-gray-400 mx-8 sm:h-10 lg:h-12"/>
                         <div className="flex flex-col items-center">
-                            <FontAwesomeIcon fixedWidth icon={faCheck} className={clsx("text-7xl text-gray-400 shrink-0", receivedTx.completed && "text-green-600")}/>
+                            <FontAwesomeIcon fixedWidth icon={faCheck} className={clsx("text-2xl text-gray-400 shrink-0 sm:text-5xl lg:text-7xl", receivedTx.completed && "text-green-600")}/>
                             <p className="text-slate-200 mt-2">Finished</p>
                         </div>
                     </div>
-
                     <div className="flex justify-center gap-4 py-8 ">
                         {
                             receivedTx.seller === address ?
@@ -142,8 +135,6 @@ export default function TrackTx() {
             </div>
         }
     }
-
-
     return (
         <Page>
 
