@@ -96,7 +96,7 @@ export default function Open() {
                                 </div>
                             </div>
 
-                            <div className="flex justify-between gap-4">
+                            <div className="flex flex-col justify-between gap-2 sm:flex-row sm:gap-4">
                                 <div className="flex-1">
                                     <label htmlFor="amount"
                                            className="block text-sm font-medium leading-6 text-white">
@@ -208,8 +208,8 @@ export default function Open() {
 
                     <div className="text-center">
                         <div className="w-full max-w-2xl flex flex-col gap-8">
-                            <div className="flex justify-between items-center">
-                                <div className="w-80 text-end">
+                            <div className="flex flex-col-reverse justify-between items-center gap-4 sm:flex-row">
+                                <div className="w-80 text-center sm:text-end">
                                     <p className="text-white text-lg font-semibold">Secure your payment</p>
                                     <p className="text-gray-300 font-medium mt-2">Smart contract locks the funds of your
                                         costumer, so you
@@ -221,9 +221,9 @@ export default function Open() {
                                 <img src={safeTransaction} alt="Safe Transaction" className="w-80 rounded-xl"/>
                             </div>
 
-                            <div className="flex justify-between items-center">
+                            <div className="flex flex-col justify-between items-center gap-4 sm:flex-row">
                                 <img src={feedback} alt="Feedback" className="w-80 rounded-xl"/>
-                                <div className="w-80 text-start">
+                                <div className="w-80 text-center sm:text-start">
                                     <p className="text-white text-lg font-semibold">Forced feedback</p>
                                     <p className="text-gray-300 font-medium mt-2">Upon purchase your client deposits the
                                         value of the goods
@@ -235,9 +235,9 @@ export default function Open() {
                                 </div>
                             </div>
 
-                            <div className="relative flex justify-between items-center gap-8 pb-12">
-                                <img src={dao} alt="Feedback" className="rounded-xl"/>
-                                <div className="absolute text-gray-200 left-12 max-w-md">
+                            <div className="relative flex flex-col justify-between items-center gap-8 pb-12 sm:flex-row">
+                                <img src={dao} alt="Feedback" className="w-80 rounded-xl sm:w-auto"/>
+                                <div className="static text-gray-200 left-12 max-w-md sm:absolute">
                                     <p className="text-lg font-semibold">Integrated DAO</p>
                                     <p className="font-medium">DAO mediates flagged transactions with decentralized
                                         decision-making and transparent voting to punish bad actors.</p>
