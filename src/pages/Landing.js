@@ -20,7 +20,7 @@ export default function Landing() {
                         of bad acting will be taken care by our dedicated community of trusted mediators within our
                         DAO.
                     </p>
-                    <div className="flex flex-col mt-10 justify-center gap-4 sm:gap-8 sm:flex-row">
+                    <div className="flex flex-col mt-10 justify-center gap-4 sm:flex-row">
                         <ButtonLink to="/open" className="sm:w-72">
                             Get started
                         </ButtonLink>
