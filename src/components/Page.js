@@ -10,7 +10,7 @@ export default function Page({children, headerChildren}) {
                 {headerChildren}
             </Header>
 
-            <div className="z-10 w-full h-full flex flex-col justify-center items-center flex-1 isolate overflow-hidden">
+            <div className="z-10 w-full h-full flex flex-col justify-center items-center flex-1 isolate overflow-hidden p-4">
                 {children}
             </div>
 

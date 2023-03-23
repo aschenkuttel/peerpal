@@ -252,7 +252,7 @@ export default function Open() {
 
     return (
         <Page headerChildren={
-            <p className="text-center text-white text-3xl font-bold">Open your Transaction</p>
+            <p className="hidden text-center text-white text-3xl font-bold md:block">Open your Transaction</p>
         }>
             {content()}
         </Page>

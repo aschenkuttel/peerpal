@@ -8,7 +8,7 @@ export default function Header({children, className}) {
     return (
         <header className={clsx("bg-gray-100 border-b border-gray-200 shadow-lg", className)}>
             <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
-                <div className="flex lg:flex-1">
+                <div className="flex flex-1">
                     <Link to="/">
                         <img
                             className="h-12 w-auto"
@@ -20,7 +20,7 @@ export default function Header({children, className}) {
 
                 {children}
 
-                <div className="flex">
+                <div className="flex flex-1 justify-end">
                     <ConnectButton/>
                 </div>
             </nav>
