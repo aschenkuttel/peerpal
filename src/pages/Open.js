@@ -42,7 +42,7 @@ export default function Open() {
                         You successfully opened a Transaction!
                     </p>
 
-                    <div className="block rounded-md border-0 px-2.5 py-1.5 bg-gray-700 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 sm:text-sm sm:leading-6">
+                    <div className="block rounded-md border-0 px-2.5 py-1.5 bg-gray-700 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 break-all">
                         {transactionURL}
                     </div>
 
@@ -73,7 +73,7 @@ export default function Open() {
                                         id="title"
                                         maxLength="64"
                                         onChange={(e) => setTitle(e.target.value)}
-                                        className="block w-full rounded-md border-0 py-1.5 bg-gray-700 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                                        className="block w-full rounded-md border-0 py-1.5 bg-gray-700 text-sm text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600"
                                         placeholder="Productname"
                                     />
                                 </div>
@@ -90,7 +90,7 @@ export default function Open() {
                                 id="description"
                                 maxLength="240"
                                 onChange={(e) => setDescription(e.target.value)}
-                                className="block w-full rounded-md border-0 py-1.5 bg-gray-700 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                                className="block w-full rounded-md border-0 py-1.5 bg-gray-700 text-sm text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600"
                                 placeholder="A short description of your product/service"
                             />
                                 </div>
@@ -114,7 +114,7 @@ export default function Open() {
                                                     setAmount(BigNumber.from(0))
                                                 }
                                             }}
-                                            className="flex-1 block w-full rounded-md border-0 py-1.5 bg-gray-700 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                                            className="flex-1 block w-full rounded-md border-0 py-1.5 bg-gray-700 text-sm text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600"
                                             placeholder="0.00"
                                         />
                                     </div>
@@ -129,7 +129,7 @@ export default function Open() {
                                                 </Listbox.Label>
                                                 <div className="relative">
                                                     <Listbox.Button
-                                                        className="relative w-full cursor-default rounded-md bg-gray-700 text-gray-100 py-1.5 pl-3 pr-10 text-left shadow-sm ring-1 ring-inset ring-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-600 sm:text-sm sm:leading-6 disabled:cursor-not-allowed"
+                                                        className="relative w-full cursor-default rounded-md bg-gray-700 text-sm text-gray-100 py-1.5 pl-3 pr-10 text-left shadow-sm ring-1 ring-inset ring-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-600 disabled:cursor-not-allowed"
                                                         disabled={true}>
                                                         <span className="block truncate">{selected.symbol}</span>
                                                         <span
@@ -146,7 +146,7 @@ export default function Open() {
                                                         leaveTo="opacity-0"
                                                     >
                                                         <Listbox.Options
-                                                            className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                                            className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-sm shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                                             {[selected].map((currency) => (
                                                                 <Listbox.Option
                                                                     key={currency.address}
@@ -206,42 +206,40 @@ export default function Open() {
                         </div>
                     </div>
 
-                    <div className="text-center">
-                        <div className="w-full max-w-2xl flex flex-col gap-8">
-                            <div className="flex flex-col-reverse justify-between items-center gap-4 sm:flex-row">
-                                <div className="w-80 text-center sm:text-end">
-                                    <p className="text-white text-lg font-semibold">Secure your payment</p>
-                                    <p className="text-gray-300 font-medium mt-2">Smart contract locks the funds of your
-                                        costumer, so you
-                                        can
-                                        ship
-                                        your goods safely
-                                        knowing that you will get paid</p>
-                                </div>
-                                <img src={safeTransaction} alt="Safe Transaction" className="w-80 rounded-xl"/>
+                    <div className="w-full max-w-2xl flex flex-col gap-8 text-center">
+                        <div className="flex flex-col-reverse justify-between items-center gap-4 sm:flex-row">
+                            <div className="w-80 text-center sm:text-end">
+                                <p className="text-white text-lg font-semibold">Secure your payment</p>
+                                <p className="text-gray-300 font-medium mt-2">Smart contract locks the funds of your
+                                    costumer, so you
+                                    can
+                                    ship
+                                    your goods safely
+                                    knowing that you will get paid</p>
                             </div>
+                            <img src={safeTransaction} alt="Safe Transaction" className="w-80 rounded-xl"/>
+                        </div>
 
-                            <div className="flex flex-col justify-between items-center gap-4 sm:flex-row">
-                                <img src={feedback} alt="Feedback" className="w-80 rounded-xl"/>
-                                <div className="w-80 text-center sm:text-start">
-                                    <p className="text-white text-lg font-semibold">Forced feedback</p>
-                                    <p className="text-gray-300 font-medium mt-2">Upon purchase your client deposits the
-                                        value of the goods
-                                        and
-                                        a
-                                        small deposit.
-                                        Once the parcel arrives, your client unlocks the money and gets his deposit
-                                        back.</p>
-                                </div>
+                        <div className="flex flex-col justify-between items-center gap-4 sm:flex-row">
+                            <img src={feedback} alt="Feedback" className="w-80 rounded-xl"/>
+                            <div className="w-80 text-center sm:text-start">
+                                <p className="text-white text-lg font-semibold">Forced feedback</p>
+                                <p className="text-gray-300 font-medium mt-2">Upon purchase your client deposits the
+                                    value of the goods
+                                    and
+                                    a
+                                    small deposit.
+                                    Once the parcel arrives, your client unlocks the money and gets his deposit
+                                    back.</p>
                             </div>
+                        </div>
 
-                            <div className="relative flex flex-col justify-between items-center gap-8 pb-12 sm:flex-row">
-                                <img src={dao} alt="Feedback" className="w-80 rounded-xl sm:w-auto"/>
-                                <div className="static text-gray-200 left-12 max-w-md sm:absolute">
-                                    <p className="text-lg font-semibold">Integrated DAO</p>
-                                    <p className="font-medium">DAO mediates flagged transactions with decentralized
-                                        decision-making and transparent voting to punish bad actors.</p>
-                                </div>
+                        <div className="relative flex flex-col justify-between items-center gap-8 pb-12 sm:flex-row">
+                            <img src={dao} alt="Feedback" className="w-80 rounded-xl sm:w-auto"/>
+                            <div className="w-80 text-gray-200 left-12 max-w-md sm:w-auto sm:absolute">
+                                <p className="text-lg font-semibold">Integrated DAO</p>
+                                <p className="font-medium">DAO mediates flagged transactions with decentralized
+                                    decision-making and transparent voting to punish bad actors.</p>
                             </div>
                         </div>
                     </div>
