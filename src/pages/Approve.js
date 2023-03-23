@@ -69,10 +69,9 @@ export default function Approve() {
                                     id="title"
                                     value={transaction.title}
                                     disabled={true}
-                                    className="flex-1 block w-full rounded-md border-0 py-1.5 bg-gray-700 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                                    className="flex-1 block w-full rounded-md border-0 py-1.5 bg-gray-700 text-sm text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600"
                                 />
                             </div>
-
                             <div>
                                 <label htmlFor="description"
                                        className="block text-sm font-medium leading-6 text-white">
@@ -83,11 +82,10 @@ export default function Approve() {
                                     id="description"
                                     value={transaction.description}
                                     disabled={true}
-                                    className="flex-1 block w-full rounded-md border-0 py-1.5 bg-gray-700 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                                    className="flex-1 block w-full rounded-md border-0 py-1.5 bg-gray-700 text-sm text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600"
                                 />
                             </div>
-
-                            <div className="flex justify-between gap-4">
+                            <div className="flex flex-col justify-between gap-2 sm:flex-row sm:gap-4">
                                 <div className="flex-1">
                                     <label htmlFor="amount"
                                            className="block text-sm font-medium leading-6 text-white">
@@ -99,7 +97,7 @@ export default function Approve() {
                                         id="amount"
                                         value={ethers.utils.formatEther(BigNumber.from(transaction.amount)) + " EURe"}
                                         disabled={true}
-                                        className="flex-1 block w-full rounded-md border-0 py-1.5 bg-gray-700 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                                        className="flex-1 block w-full rounded-md border-0 py-1.5 bg-gray-700 text-sm text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600"
                                     />
                                 </div>
                                 <div className="flex-1">
@@ -114,12 +112,11 @@ export default function Approve() {
                                             id="currency"
                                             value="EURe"
                                             disabled={true}
-                                            className="flex-1 block w-full rounded-md border-0 py-1.5 bg-gray-700 text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                                            className="flex-1 block w-full rounded-md border-0 py-1.5 bg-gray-700 text-sm text-gray-100 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600"
                                         />
                                     </div>
                                 </div>
                             </div>
-
                             <div className="flex justify-center gap-4 mt-2">
                                 <Button
                                     disabled={address === null || approved}
@@ -131,27 +128,23 @@ export default function Approve() {
                                     }} className="w-24">
                                     {approved ? <FontAwesomeIcon icon={faCheck}/> : "Approve"}
                                 </Button>
-
                                 <Button
                                     disabled={address === null || !approved}
                                     onClick={async () => {
                                         setLoading(true)
                                         const response = await deposit(transactionID)
-
                                         if (response) {
                                             await navigate(`/track/${transactionID}`)
                                         }
-
                                     }} className="w-24">
                                     Confirm
                                 </Button>
                             </div>
                         </div>
                     </div>
-
-                    <div className="w-full max-w-2xl flex flex-col gap-8">
-                        <div className="flex justify-between items-center">
-                            <div className="w-80 text-end">
+                    <div className="w-full max-w-2xl flex flex-col gap-8 text-center">
+                        <div className="flex flex-col-reverse justify-between items-center gap-4 sm:flex-row">
+                            <div className="w-80 text-center sm:text-end">
                                 <p className="text-white text-lg font-semibold">Avoid Scams</p>
                                 <p className="text-gray-300 font-medium mt-2">
                                     Control the flow of your funds, by only releasing them once you get what you purchased
@@ -159,10 +152,9 @@ export default function Approve() {
                             </div>
                             <img src={scam} alt="Safe Transaction" className="w-80 rounded-xl"/>
                         </div>
-
-                        <div className="flex justify-between items-center">
+                        <div className="flex flex-col justify-between items-center gap-4 sm:flex-row">
                             <img src={trust} alt="Feedback" className="w-80 rounded-xl"/>
-                            <div className="w-80 text-start">
+                            <div className="w-80 text-center sm:text-start">
                                 <p className="text-white text-lg font-semibold">Fairness</p>
                                 <p className="text-gray-300 font-medium mt-2">
                                     when purchasing a good/service you lock it’s price plus a small deposit into a smart contract.
@@ -170,10 +162,9 @@ export default function Approve() {
                                 </p>
                             </div>
                         </div>
-
-                        <div className="relative flex justify-between items-center gap-8 pb-12">
-                            <img src={dao} alt="Feedback" className="rounded-xl"/>
-                            <div className="absolute text-gray-200 left-12 max-w-md">
+                        <div className="relative flex flex-col justify-between items-center gap-8 pb-12 sm:flex-row">
+                            <img src={dao} alt="Feedback" className="w-80 rounded-xl sm:w-auto"/>
+                            <div className="w-80 text-gray-200 left-12 max-w-md sm:absolute sm:w-auto">
                                 <p className="text-lg font-semibold">Integrated DAO</p>
                                 <p className="font-medium">DAO mediates flagged transactions with decentralized
                                     decision-making and transparent voting to punish bad actors.</p>
@@ -187,7 +178,7 @@ export default function Approve() {
 
     return (
         <Page headerChildren={
-            <p className="text-center text-white text-3xl font-bold">Approve the Transaction</p>
+            <p className="hidden text-center text-white text-3xl font-bold md:block">Approve the Transaction</p>
         }>
             {content()}
         </Page>
