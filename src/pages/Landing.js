@@ -6,14 +6,14 @@ export default function Landing() {
         <Page>
             <div className="mx-auto max-w-2xl">
                 <div className="text-center p-4">
-                <h1 className="text-4xl font-bold tracking-tight text-slate-300 sm:text-6xl">
+                    <h1 className="text-4xl font-bold tracking-tight text-slate-300 sm:text-6xl">
                         Welcome to <span className='text-blue-600'>PeerPal</span>
                     </h1>
                     <h1 className="mt-10 text-2xl font-bold tracking-tight text-slate-400 sm:text-4xl">
                         A trustless and safe way to ensure your transactions are honored!
                     </h1>
                     <p className="mt-10 text-lg leading-8 text-slate-400">
-                        Welcome to PeerPal! Our platform offers a secure and reliable way for traders to transact
+                        Our platform offers a secure and reliable way for traders to transact
                         with digital assets, using advanced blockchain technology. Our escrow service acts as a
                         trusted third party between the buyer and seller, ensuring that both parties fulfill their
                         obligations and that the transaction is completed successfully. The mediation part in case
