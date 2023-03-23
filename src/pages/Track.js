@@ -46,7 +46,6 @@ export default function Track() {
         </span>
         }
     }
-
     return (
         <Page>
             {
@@ -75,7 +74,6 @@ export default function Track() {
                             </div>
                         </div>
                     </nav>
-
                     <div className="overflow-hidden shadow border border-gray-800 rounded-xl">
                         <table className="min-w-full divide-y divide-gray-700 rounded-xl">
                             <thead className="bg-gray-800">
@@ -87,9 +85,14 @@ export default function Track() {
                                 <th scope="col"
                                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
                                     Owner
+                                    <dl className="sm:hidden">
+                                            <dd className="mt-1 truncate">
+                                            Buyer
+                                            </dd>
+                                        </dl>
                                 </th>
                                 <th scope="col"
-                                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                                    className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-200 sm:table-cell">
                                     Buyer
                                 </th>
                                 <th scope="col"
@@ -97,7 +100,7 @@ export default function Track() {
                                     State
                                 </th>
                                 <th scope="col"
-                                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-200">
+                                    className="hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-200 sm:table-cell">
                                     Date Issued
                                 </th>
                             </tr>
@@ -112,14 +115,20 @@ export default function Track() {
                                     </td>
                                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
                                         {linkifyTx(transaction.seller)}
+                                        <dl className="sm:hidden">
+                                            <dt className="sr-only">Buyer</dt>
+                                            <dd className="mt-1 truncate">
+                                            {transaction.buyer ? linkifyTx(transaction.buyer) : "No buyer yet"}
+                                            </dd>
+                                        </dl>
                                     </td>
-                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
+                                    <td className="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-300 sm:table-cell">
                                         {transaction.buyer ? linkifyTx(transaction.buyer) : "No buyer yet"}
                                     </td>
                                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
                                         {getTxState(transaction)}
                                     </td>
-                                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-300">
+                                    <td className="hidden whitespace-nowrap px-3 py-4 text-sm text-gray-300 sm:table-cell">
                                         {dateFormat(transaction.timestamp)}
                                     </td>
                                 </tr>
@@ -133,7 +142,6 @@ export default function Track() {
                 loading &&
                 <PeerLoader/>
             }
-
         </Page>
     )
 }
